@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { IEthic } from '../models/IEthic';
 
 export enum EthicStatus {
@@ -7,11 +8,12 @@ export enum EthicStatus {
 }
 export class EthicUtils {
   public static getEthics() {
+    const baseUrl = environment.baseUrl;
     const centerEthics: IEthic[] = [
       {
         name: 'gestalt_consciousness',
         typeId: 0,
-        url: '../assets/Images/Ethics/Gestalt_consciousness.png',
+        url: `${baseUrl}/assets/Images/Ethics/Gestalt_consciousness.png`,
         status: EthicStatus.available,
         cost: 3,
         description: 'We reach into the void. The vast expanse becomes us.'
@@ -21,7 +23,7 @@ export class EthicUtils {
       {
         name: 'eqalitarian',
         typeId: 1,
-        url: '../assets/Images/Ethics/Egalitarian.png',
+        url: `${baseUrl}/assets/Images/Ethics/Egalitarian.png`,
         status: EthicStatus.available,
         cost: 1,
         description:
@@ -30,7 +32,7 @@ export class EthicUtils {
       {
         name: 'materialist',
         typeId: 2,
-        url: '../assets/Images/Ethics/Materialist.png',
+        url: `${baseUrl}/assets/Images/Ethics/Materialist.png`,
         status: EthicStatus.available,
         cost: 1,
         description:
@@ -39,7 +41,7 @@ export class EthicUtils {
       {
         name: 'pacifist',
         typeId: 3,
-        url: '../assets/Images/Ethics/Pacifist.png',
+        url: `${baseUrl}/assets/Images/Ethics/Pacifist.png`,
         status: EthicStatus.available,
         cost: 1,
         description:
@@ -48,7 +50,7 @@ export class EthicUtils {
       {
         name: 'xenophile',
         typeId: 4,
-        url: '../assets/Images/Ethics/Xenophile.png',
+        url: `${baseUrl}/assets/Images/Ethics/Xenophile.png`,
         status: EthicStatus.available,
         cost: 1,
         description:
@@ -57,7 +59,7 @@ export class EthicUtils {
       {
         name: 'authoritarian',
         typeId: 1,
-        url: '../assets/Images/Ethics/Authoritarian.png',
+        url: `${baseUrl}/assets/Images/Ethics/Authoritarian.png`,
         status: EthicStatus.available,
         cost: 1,
         description:
@@ -66,7 +68,7 @@ export class EthicUtils {
       {
         name: 'spiritualist',
         typeId: 2,
-        url: '../assets/Images/Ethics/Spiritualist.png',
+        url: `${baseUrl}/assets/Images/Ethics/Spiritualist.png`,
         status: EthicStatus.available,
         cost: 1,
         description:
@@ -75,7 +77,7 @@ export class EthicUtils {
       {
         name: 'militarist',
         typeId: 3,
-        url: '../assets/Images/Ethics/Militarist.png',
+        url: `${baseUrl}/assets/Images/Ethics/Militarist.png`,
         status: EthicStatus.available,
         cost: 1,
         description:
@@ -84,7 +86,7 @@ export class EthicUtils {
       {
         name: 'xenophobe',
         typeId: 4,
-        url: '../assets/Images/Ethics/Xenophobe.png',
+        url: `${baseUrl}/assets/Images/Ethics/Xenophobe.png`,
         status: EthicStatus.available,
         cost: 1,
         description:
@@ -96,7 +98,7 @@ export class EthicUtils {
       {
         name: 'fanatic_eqalitarian',
         typeId: 1,
-        url: '../assets/Images/Ethics/Fanatic_Egalitarian.png',
+        url: `${baseUrl}/assets/Images/Ethics/Fanatic_Egalitarian.png`,
         status: EthicStatus.available,
         cost: 2,
         description:
@@ -105,7 +107,7 @@ export class EthicUtils {
       {
         name: 'fanatic_materialist',
         typeId: 2,
-        url: '../assets/Images/Ethics/Fanatic_Materialist.png',
+        url: `${baseUrl}/assets/Images/Ethics/Fanatic_Materialist.png`,
         status: EthicStatus.available,
         cost: 2,
         description:
@@ -114,7 +116,7 @@ export class EthicUtils {
       {
         name: 'fanatic_pacifist',
         typeId: 3,
-        url: '../assets/Images/Ethics/Fanatic_Pacifist.png',
+        url: `${baseUrl}/assets/Images/Ethics/Fanatic_Pacifist.png`,
         status: EthicStatus.available,
         cost: 2,
         description:
@@ -123,7 +125,7 @@ export class EthicUtils {
       {
         name: 'fanatic_xenophile',
         typeId: 4,
-        url: '../assets/Images/Ethics/Fanatic_Xenophile.png',
+        url: `${baseUrl}/assets/Images/Ethics/Fanatic_Xenophile.png`,
         status: EthicStatus.available,
         cost: 2,
         description:
@@ -132,7 +134,7 @@ export class EthicUtils {
       {
         name: 'fanatic_authoritarian',
         typeId: 1,
-        url: '../assets/Images/Ethics/Fanatic_Authoritarian.png',
+        url: `${baseUrl}/assets/Images/Ethics/Fanatic_Authoritarian.png`,
         status: EthicStatus.available,
         cost: 2,
         description:
@@ -141,7 +143,7 @@ export class EthicUtils {
       {
         name: 'fanatic_spiritualist',
         typeId: 2,
-        url: '../assets/Images/Ethics/Fanatic_Spiritualist.png',
+        url: `${baseUrl}/assets/Images/Ethics/Fanatic_Spiritualist.png`,
         status: EthicStatus.available,
         cost: 2,
         description:
@@ -150,7 +152,7 @@ export class EthicUtils {
       {
         name: 'fanatic_militarist',
         typeId: 3,
-        url: '../assets/Images/Ethics/Fanatic_Militarist.png',
+        url: `${baseUrl}/assets/Images/Ethics/Fanatic_Militarist.png`,
         status: EthicStatus.available,
         cost: 2,
         description:
@@ -159,7 +161,7 @@ export class EthicUtils {
       {
         name: 'fanatic_xenophobe',
         typeId: 4,
-        url: '../assets/Images/Ethics/Fanatic_Xenophobe.png',
+        url: `${baseUrl}/assets/Images/Ethics/Fanatic_Xenophobe.png`,
         status: EthicStatus.available,
         cost: 2,
         description:
