@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IEthic } from 'src/app/core/models/IEthic';
-import { EthicUtils } from 'src/app/core/utils/ethic-utils';
+import { EthicUtils, EthicStatus } from 'src/app/core/utils/ethic-utils';
 
 @Component({
   selector: 'app-ethics',
@@ -8,6 +8,8 @@ import { EthicUtils } from 'src/app/core/utils/ethic-utils';
   styleUrls: ['./ethics.component.scss']
 })
 export class EthicsComponent implements OnInit {
+  loaded: boolean;
+  ethicStatus = EthicStatus;
   centerEthics: IEthic[];
   innerEthics: IEthic[];
   outerEthics: IEthic[];
@@ -19,42 +21,56 @@ export class EthicsComponent implements OnInit {
     this.centerEthics = ethics.centerEthics;
     this.innerEthics = ethics.innerEthics;
     this.outerEthics = ethics.outerEthics;
+    this.loaded = true;
   }
 
   click(ethic: IEthic) {
-    if (this.activeEthics.find(ethicItem => ethicItem.name === ethic.name)) {
-      this.activeEthics.splice(
-        this.activeEthics.findIndex(ethicItem => ethicItem.name === ethic.name),
-        1
-      );
+    if (ethic.status === EthicStatus.disabled) {
+      return;
+    }
+    // Check is user is removing an already added item
+    const existingEthosIndex = this.activeEthics.findIndex(
+      ethicItem => ethicItem.name === ethic.name
+    );
+    // Remove already added itenm
+    if (existingEthosIndex > -1) {
+      ethic.status = EthicStatus.available;
+      this.activeEthics.splice(existingEthosIndex, 1);
       this.pickedEthicTypes.delete(ethic.typeId);
+      // Make sure edicts total cost + new edict not costs more than 3
     } else {
-      if (
-        this.activeEthics.find(ethicItem => ethicItem.typeId === ethic.typeId)
-      ) {
-        return;
-      }
       this.activeEthics.push(ethic);
+      ethic.status = EthicStatus.active;
       this.pickedEthicTypes.add(ethic.typeId);
     }
-  }
 
-  isActive(ethic: string) {
-    if (
-      this.activeEthics.findIndex(ethicItem => ethicItem.name === ethic) > -1
-    ) {
-      return true;
-    }
-
-    return false;
-  }
-
-  isDisabled(ethic: string) {
-    if (ethic === 'fanatic_authoritarian') {
-      if (this.activeEthics.indexOf('fanatic_eqalitarian') > -1) {
-        return true;
+    // Loop all ethics to manage status changes based on user input
+    const allEthics = [
+      ...this.centerEthics,
+      ...this.innerEthics,
+      ...this.outerEthics
+    ];
+    for (const currentEthic of allEthics) {
+      if (
+        this.pickedEthicTypes.has(currentEthic.typeId) &&
+        currentEthic.status !== EthicStatus.active
+      ) {
+        currentEthic.status = EthicStatus.disabled;
+      } else if (currentEthic.status === EthicStatus.active) {
+        continue;
+      } else {
+        if (this.getTotalEdictCost() + currentEthic.cost > 3) {
+          currentEthic.status = EthicStatus.disabled;
+        } else {
+          currentEthic.status = EthicStatus.available;
+        }
       }
     }
-    return false;
+  }
+
+  getTotalEdictCost() {
+    return this.activeEthics.reduce((acc, x: IEthic) => {
+      return (acc += x.cost);
+    }, 0);
   }
 }

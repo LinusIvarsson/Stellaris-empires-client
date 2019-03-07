@@ -1,13 +1,12 @@
-<div class="position-relative ethics-container ">
+<div *ngIf="loaded" class="position-relative ethics-container ">
   <div class="ethics center">
     <img
       *ngFor="let ethic of centerEthics"
       (click)="click(ethic)"
       src="{{ ethic.url }}"
       [ngClass]="{
-        active: isActive(ethic.name),
-        disabled:
-          !pickedEthicTypes.has(ethic.typeId) && pickedEthicTypes.size > 0
+        active: ethic.status === ethicStatus.active,
+        disabled: ethic.status === ethicStatus.disabled
       }"
     />
   </div>
@@ -17,8 +16,8 @@
       (click)="click(ethic)"
       src="{{ ethic.url }}"
       [ngClass]="{
-        active: isActive(ethic.name),
-        disabled: pickedEthicTypes.has(ethic.typeId) && !isActive(ethic.name)
+        active: ethic.status === ethicStatus.active,
+        disabled: ethic.status === ethicStatus.disabled
       }"
     />
   </div>
@@ -28,10 +27,8 @@
       (click)="click(ethic)"
       src="{{ ethic.url }}"
       [ngClass]="{
-        active: isActive(ethic.name),
-        disabled:
-          (pickedEthicTypes.has(ethic.typeId) && !isActive(ethic.name)) ||
-          pickedEthicTypes.size >= 3
+        active: ethic.status === ethicStatus.active,
+        disabled: ethic.status === ethicStatus.disabled
       }"
     />
   </div>
