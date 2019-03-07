@@ -1,0 +1,38 @@
+<div class="position-relative ethics-container ">
+  <div class="ethics center">
+    <img
+      *ngFor="let ethic of centerEthics"
+      (click)="click(ethic)"
+      src="{{ ethic.url }}"
+      [ngClass]="{
+        active: isActive(ethic.name),
+        disabled:
+          !pickedEthicTypes.has(ethic.typeId) && pickedEthicTypes.size > 0
+      }"
+    />
+  </div>
+  <div class="ethics inner">
+    <img
+      *ngFor="let ethic of innerEthics"
+      (click)="click(ethic)"
+      src="{{ ethic.url }}"
+      [ngClass]="{
+        active: isActive(ethic.name),
+        disabled: pickedEthicTypes.has(ethic.typeId) && !isActive(ethic.name)
+      }"
+    />
+  </div>
+  <div class="ethics outer">
+    <img
+      *ngFor="let ethic of outerEthics"
+      (click)="click(ethic)"
+      src="{{ ethic.url }}"
+      [ngClass]="{
+        active: isActive(ethic.name),
+        disabled:
+          (pickedEthicTypes.has(ethic.typeId) && !isActive(ethic.name)) ||
+          pickedEthicTypes.size >= 3
+      }"
+    />
+  </div>
+</div>
