@@ -1,7 +1,8 @@
 export interface IEthic {
   typeId: number;
-  name: String;
-  url: String;
-  status: String;
+  name: string;
+  url: string;
+  status: string;
   cost: number;
+  description: string;
 }
