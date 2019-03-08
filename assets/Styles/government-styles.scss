@@ -29,12 +29,6 @@
   }
 }
 
-.ethics-container {
-  height: 240px;
-  width: 240px;
-  background: black;
-}
-
 .ethics {
   &.inner {
     @include on-circle($item-count: 8, $circle-size: 6em, $item-size: 2.3rem);
