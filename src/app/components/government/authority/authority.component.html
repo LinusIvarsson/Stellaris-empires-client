@@ -1,0 +1,11 @@
+<div class="authority-container">
+  <img
+    *ngFor="let authority of authorities"
+    (click)="click(authority)"
+    src="{{ authority.url }}"
+    [ngClass]="{
+      active: authority.status === authorityStatus.active,
+      disabled: authority.status === authorityStatus.disabled
+    }"
+  />
+</div>

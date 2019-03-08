@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IEthic } from 'src/app/core/models/IEthic';
-import { EthicUtils, EthicStatus } from 'src/app/core/utils/ethic-utils';
+import { EthicStatus, EthicUtils } from 'src/app/core/utils/ethic-utils';
 
 @Component({
   selector: 'app-ethics',
@@ -8,20 +8,20 @@ import { EthicUtils, EthicStatus } from 'src/app/core/utils/ethic-utils';
   styleUrls: ['./ethics.component.scss']
 })
 export class EthicsComponent implements OnInit {
+  @Output() ethicChanged: EventEmitter<IEthic[]> = new EventEmitter<IEthic[]>();
   loaded: boolean;
   ethicStatus = EthicStatus;
   centerEthics: IEthic[];
   innerEthics: IEthic[];
   outerEthics: IEthic[];
   pickedEthicTypes: Set<Number> = new Set();
-  activeEthics = [];
+  activeEthics: IEthic[] = [];
 
   ngOnInit() {
     const ethics = EthicUtils.getEthics();
     this.centerEthics = ethics.centerEthics;
     this.innerEthics = ethics.innerEthics;
     this.outerEthics = ethics.outerEthics;
-    this.loaded = true;
   }
 
   click(ethic: IEthic) {
@@ -66,6 +66,7 @@ export class EthicsComponent implements OnInit {
         }
       }
     }
+    this.ethicChanged.emit(this.activeEthics);
   }
 
   getTotalEdictCost() {
