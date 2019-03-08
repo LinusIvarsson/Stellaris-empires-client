@@ -13,6 +13,7 @@ import {
 })
 export class AuthorityComponent implements OnInit, DoCheck {
   @Input() activeEthics: IEthic[];
+  activeAuthority: IAuthority;
   authorities: IAuthority[] = [];
   authorityStatus = AuthorityStatus;
   activeEthicLength = 0;
@@ -27,55 +28,81 @@ export class AuthorityComponent implements OnInit, DoCheck {
     if (this.activeEthicLength !== this.activeEthics.length) {
       this.activeEthicLength = this.activeEthics.length;
       this.validateAuthorities();
+      if (
+        this.activeAuthority &&
+        this.activeAuthority.status === AuthorityStatus.disabled
+      ) {
+        this.activeAuthority = undefined;
+      }
     }
   }
 
-  click() {}
+  click(authority: IAuthority) {
+    if (authority.status === AuthorityStatus.disabled) {
+      return;
+    }
+
+    if (this.activeAuthority && authority.name === this.activeAuthority.name) {
+      authority.status = AuthorityStatus.available;
+      this.activeAuthority = undefined;
+    } else {
+      this.activeAuthority
+        ? (this.activeAuthority.status = AuthorityStatus.available)
+        : undefined;
+      this.activeAuthority = authority;
+      authority.status = AuthorityStatus.active;
+    }
+  }
 
   validateAuthorities() {
     for (const authority of this.authorities) {
       switch (authority.name) {
         case 'Democratic': {
-          this.validateDemocratic(authority);
+          this.setStatus(this.validateDemocratic(), authority);
           break;
         }
         case 'Oligarchic': {
-          this.validateOligarchic(authority);
+          this.setStatus(this.validateOligarchic(), authority);
           break;
         }
         case 'Dictatorial': {
-          this.validateDictatorial(authority);
+          this.setStatus(this.validateDictatorial(), authority);
           break;
         }
         case 'Imperial': {
-          this.validateImperial(authority);
-          break;
-        }
-        case 'Hive Mind': {
-          this.validateHiveMind(authority);
-          break;
-        }
-        case 'Machine Intelligence': {
-          this.validateMachineIntelligence(authority);
+          this.setStatus(this.validateImperial(), authority);
           break;
         }
         case 'Corporate': {
-          this.validateCorporate(authority);
+          this.setStatus(this.validateCorporate(), authority);
+          break;
+        }
+        case 'Hive Mind': {
+          this.setStatus(this.validateHiveMind(), authority);
+          break;
+        }
+        case 'Machine Intelligence': {
+          this.setStatus(this.validateMachineIntelligence(), authority);
           break;
         }
       }
     }
   }
 
-  setStatus(index: number, authority: IAuthority) {
-    if (index > -1) {
+  setStatus(valid: boolean, authority: IAuthority) {
+    if (!valid) {
       authority.status = AuthorityStatus.disabled;
+    } else if (
+      this.activeAuthority &&
+      this.activeAuthority.name === authority.name
+    ) {
+      this.activeAuthority.status = AuthorityStatus.active;
     } else {
       authority.status = AuthorityStatus.available;
     }
   }
 
-  validateDemocratic(authority: IAuthority) {
+  validateDemocratic() {
     const hasConflictingEthic = this.activeEthics.findIndex(
       auth =>
         auth.name === 'authoritarian' ||
@@ -83,10 +110,10 @@ export class AuthorityComponent implements OnInit, DoCheck {
         auth.name === 'gestalt_consciousness'
     );
 
-    this.setStatus(hasConflictingEthic, authority);
+    return !!hasConflictingEthic;
   }
 
-  validateOligarchic(authority: IAuthority) {
+  validateOligarchic() {
     const hasConflictingEthic = this.activeEthics.findIndex(
       auth =>
         auth.name === 'fanatic_eqalitarian' ||
@@ -94,10 +121,10 @@ export class AuthorityComponent implements OnInit, DoCheck {
         auth.name === 'gestalt_consciousness'
     );
 
-    this.setStatus(hasConflictingEthic, authority);
+    return !!hasConflictingEthic;
   }
 
-  validateDictatorial(authority: IAuthority) {
+  validateDictatorial() {
     const hasConflictingEthic = this.activeEthics.findIndex(
       auth =>
         auth.name === 'eqalitarian' ||
@@ -105,10 +132,10 @@ export class AuthorityComponent implements OnInit, DoCheck {
         auth.name === 'gestalt_consciousness'
     );
 
-    this.setStatus(hasConflictingEthic, authority);
+    return !!hasConflictingEthic;
   }
 
-  validateImperial(authority: IAuthority) {
+  validateImperial() {
     const hasConflictingEthic = this.activeEthics.findIndex(
       auth =>
         auth.name === 'eqalitarian' ||
@@ -116,10 +143,10 @@ export class AuthorityComponent implements OnInit, DoCheck {
         auth.name === 'gestalt_consciousness'
     );
 
-    this.setStatus(hasConflictingEthic, authority);
+    return !!hasConflictingEthic;
   }
 
-  validateCorporate(authority: IAuthority) {
+  validateCorporate() {
     const hasConflictingEthic = this.activeEthics.findIndex(
       auth =>
         auth.name === 'fanatic_authoritarian' ||
@@ -127,30 +154,30 @@ export class AuthorityComponent implements OnInit, DoCheck {
         auth.name === 'gestalt_consciousness'
     );
 
-    this.setStatus(hasConflictingEthic, authority);
+    return !!hasConflictingEthic;
   }
 
-  validateHiveMind(authority: IAuthority) {
+  validateHiveMind() {
     const hasGestaltConsciousness = this.activeEthics.findIndex(
       auth => auth.name === 'gestalt_consciousness'
     );
 
     if (hasGestaltConsciousness > -1 || this.activeEthicLength === 0) {
-      authority.status = AuthorityStatus.available;
+      return true;
     } else {
-      authority.status = AuthorityStatus.disabled;
+      return false;
     }
   }
 
-  validateMachineIntelligence(authority: IAuthority) {
+  validateMachineIntelligence() {
     const hasGestaltConsciousness = this.activeEthics.findIndex(
       auth => auth.name === 'gestalt_consciousness'
     );
 
     if (hasGestaltConsciousness > -1 || this.activeEthicLength === 0) {
-      authority.status = AuthorityStatus.available;
+      return true;
     } else {
-      authority.status = AuthorityStatus.disabled;
+      return false;
     }
   }
 }
