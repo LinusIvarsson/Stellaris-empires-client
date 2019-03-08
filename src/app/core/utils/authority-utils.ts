@@ -50,7 +50,7 @@ export class AuthorityUtils {
 		  wither and die. Any free individuals on planets owned by the Mind are driven away, \
 		  killed, or simply treated as prey to feed the collective.',
         url: `${baseUrl}/assets/Images/Authorities/Auth_hive_mind.png`,
-        status: AuthorityStatus.available
+        status: AuthorityStatus.disabled
       },
       {
         name: 'Machine Intelligence',
@@ -62,7 +62,7 @@ export class AuthorityUtils {
 		A small number of semi-autonomous agents are typically employed for \
 		more specialized tasks that benefit from some degree of independent initiative.',
         url: `${baseUrl}/assets/Images/Authorities/Auth_machine_intelligence.png`,
-        status: AuthorityStatus.available
+        status: AuthorityStatus.disabled
       },
       {
         name: 'Corporate',

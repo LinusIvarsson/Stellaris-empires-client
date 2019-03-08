@@ -48,7 +48,7 @@ export class AuthorityComponent implements OnInit, DoCheck {
     } else {
       this.activeAuthority
         ? (this.activeAuthority.status = AuthorityStatus.available)
-        : undefined;
+        : (this.activeAuthority = undefined);
       this.activeAuthority = authority;
       authority.status = AuthorityStatus.active;
     }
@@ -162,7 +162,7 @@ export class AuthorityComponent implements OnInit, DoCheck {
       auth => auth.name === 'gestalt_consciousness'
     );
 
-    if (hasGestaltConsciousness > -1 || this.activeEthicLength === 0) {
+    if (hasGestaltConsciousness > -1) {
       return true;
     } else {
       return false;
@@ -174,7 +174,7 @@ export class AuthorityComponent implements OnInit, DoCheck {
       auth => auth.name === 'gestalt_consciousness'
     );
 
-    if (hasGestaltConsciousness > -1 || this.activeEthicLength === 0) {
+    if (hasGestaltConsciousness > -1) {
       return true;
     } else {
       return false;
