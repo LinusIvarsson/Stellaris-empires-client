@@ -190,7 +190,7 @@ export class CivicsUtils {
         description:
           'This society has developed into a hardy warrior culture. \
 		  Martial prowess is valued above all else, and true glory can only be found on the field of battle.',
-        url: `${baseUrl}../../../assets/Images/Civics/Standard/Civic_warrior_culture.png`
+        url: `${baseUrl}/assets/Images/Civics/Standard/Civic_warrior_culture.png`
       },
       {
         name: 'Fanatic Purifiers',
@@ -233,14 +233,6 @@ export class CivicsUtils {
         description:
           'This society holds few things sacred. To fight is to live, and the strongest may seize whatever they covet.',
         url: `${baseUrl}/assets/Images/Civics/Standard/Civic_barbaric_despoilers.png`
-      },
-      {
-        name: 'Byzantine Bureaucracy',
-        description:
-          'This society is largely governed by a complex and, to the outsider, almost labyrinthine system of bureaucracy. \
-		  An army of officials and functionaries work tirelessly to keep the government running smoothly and ensure \
-		  no citizens are allocated resources they cannot demonstrate a properly filed and triple-stamped need for.',
-        url: `${baseUrl}/assets/Images/Civics/Standard/Civic_byzantine_bureaucracy.png`
       },
       {
         name: 'Byzantine Bureaucracy',
