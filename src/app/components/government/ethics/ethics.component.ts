@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IEthic } from 'src/app/core/models/IEthic';
-import { EthicStatus, EthicUtils } from 'src/app/core/utils/ethic-utils';
+import { EthicStatus, EthicUtils } from 'src/app/core/utils/ethics-utils';
 
 @Component({
   selector: 'app-ethics',

@@ -4,7 +4,7 @@ import { IAuthority } from 'src/app/core/models/IAuthority';
 import {
   AuthorityUtils,
   AuthorityStatus
-} from 'src/app/core/utils/authority-utils';
+} from 'src/app/core/utils/authorities-utils';
 
 @Component({
   selector: 'app-authorities',
