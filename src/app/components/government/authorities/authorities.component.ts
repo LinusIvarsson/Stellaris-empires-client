@@ -7,11 +7,11 @@ import {
 } from 'src/app/core/utils/authority-utils';
 
 @Component({
-  selector: 'app-authority',
-  templateUrl: './authority.component.html',
-  styleUrls: ['./authority.component.scss']
+  selector: 'app-authorities',
+  templateUrl: './authorities.component.html',
+  styleUrls: ['./authorities.component.scss']
 })
-export class AuthorityComponent implements OnInit, DoCheck {
+export class AuthoritiesComponent implements OnInit, DoCheck {
   @Input() activeEthics: IEthic[];
   activeAuthority: IAuthority;
   authorities: IAuthority[] = [];

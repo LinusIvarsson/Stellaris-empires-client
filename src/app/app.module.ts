@@ -5,10 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EthicsComponent } from './components/government/ethics/ethics.component';
 import { GovernmentComponent } from './components/government/government.component';
-import { AuthorityComponent } from './components/government/authority/authority.component';
+import { AuthoritiesComponent } from './components/government/authorities/authorities.component';
 
 @NgModule({
-  declarations: [AppComponent, EthicsComponent, GovernmentComponent, AuthorityComponent],
+  declarations: [
+    AppComponent,
+    EthicsComponent,
+    GovernmentComponent,
+    AuthoritiesComponent
+  ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
