@@ -6,7 +6,7 @@ export enum EthicStatus {
   active = 'active',
   disabled = 'disabled'
 }
-export class EthicUtils {
+export class EthicsUtils {
   public static getEthics() {
     const baseUrl = environment.baseUrl;
     const centerEthics: IEthic[] = [

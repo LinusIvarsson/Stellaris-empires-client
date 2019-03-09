@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IEthic } from 'src/app/core/models/IEthic';
-import { EthicStatus, EthicUtils } from 'src/app/core/utils/ethics-utils';
+import { EthicStatus, EthicsUtils } from 'src/app/core/utils/ethics-utils';
 
 @Component({
   selector: 'app-ethics',
@@ -18,7 +18,7 @@ export class EthicsComponent implements OnInit {
   activeEthics: IEthic[] = [];
 
   ngOnInit() {
-    const ethics = EthicUtils.getEthics();
+    const ethics = EthicsUtils.getEthics();
     this.centerEthics = ethics.centerEthics;
     this.innerEthics = ethics.innerEthics;
     this.outerEthics = ethics.outerEthics;

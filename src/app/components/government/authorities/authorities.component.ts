@@ -2,7 +2,7 @@ import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import { IEthic } from 'src/app/core/models/IEthic';
 import { IAuthority } from 'src/app/core/models/IAuthority';
 import {
-  AuthorityUtils,
+  AuthoritiesUtils,
   AuthorityStatus
 } from 'src/app/core/utils/authorities-utils';
 
@@ -20,7 +20,7 @@ export class AuthoritiesComponent implements OnInit, DoCheck {
   constructor() {}
 
   ngOnInit() {
-    this.authorities = AuthorityUtils.getAuthorities();
+    this.authorities = AuthoritiesUtils.getAuthorities();
     this.activeEthicLength = this.activeEthics.length;
   }
 

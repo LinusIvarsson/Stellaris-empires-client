@@ -1,4 +1,6 @@
+import { CivicsUtils } from './../../../core/utils/civics-utils';
 import { Component, OnInit } from '@angular/core';
+import { ICivic } from 'src/app/core/models/ICivic';
 
 @Component({
   selector: 'app-civics',
@@ -6,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./civics.component.scss']
 })
 export class CivicsComponent implements OnInit {
-
-  constructor() { }
+  availableCivics: ICivic[];
+  constructor() {}
 
   ngOnInit() {
+    this.availableCivics = CivicsUtils.getStandardEthics();
   }
-
 }

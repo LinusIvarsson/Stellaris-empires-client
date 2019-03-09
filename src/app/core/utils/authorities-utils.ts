@@ -7,7 +7,7 @@ export enum AuthorityStatus {
   disabled = 'disabled'
 }
 
-export class AuthorityUtils {
+export class AuthoritiesUtils {
   public static getAuthorities(): IAuthority[] {
     const baseUrl = environment.baseUrl;
     const authorities: IAuthority[] = [
