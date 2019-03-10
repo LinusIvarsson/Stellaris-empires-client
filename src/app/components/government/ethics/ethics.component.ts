@@ -1,3 +1,4 @@
+import { GovernmentService } from './../../../core/services/government.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IEthic } from 'src/app/core/models/IEthic';
 import { EthicStatus, EthicsUtils } from 'src/app/core/utils/ethics-utils';
@@ -8,7 +9,6 @@ import { EthicStatus, EthicsUtils } from 'src/app/core/utils/ethics-utils';
   styleUrls: ['./ethics.component.scss']
 })
 export class EthicsComponent implements OnInit {
-  @Output() ethicChanged: EventEmitter<IEthic[]> = new EventEmitter<IEthic[]>();
   loaded: boolean;
   ethicStatus = EthicStatus;
   centerEthics: IEthic[];
@@ -17,11 +17,16 @@ export class EthicsComponent implements OnInit {
   pickedEthicTypes: Set<Number> = new Set();
   activeEthics: IEthic[] = [];
 
+  public constructor(private governmentService: GovernmentService) {}
+
   ngOnInit() {
     const ethics = EthicsUtils.getEthics();
     this.centerEthics = ethics.centerEthics;
     this.innerEthics = ethics.innerEthics;
     this.outerEthics = ethics.outerEthics;
+    this.governmentService.activeEthics.subscribe(ethics => {
+      this.activeEthics = ethics;
+    });
   }
 
   click(ethic: IEthic) {
@@ -35,13 +40,18 @@ export class EthicsComponent implements OnInit {
     // Remove already added itenm
     if (existingEthosIndex > -1) {
       ethic.status = EthicStatus.available;
-      this.activeEthics.splice(existingEthosIndex, 1);
       this.pickedEthicTypes.delete(ethic.typeId);
+
+      this.activeEthics.splice(existingEthosIndex, 1);
+      this.governmentService.activeEthics.next(this.activeEthics);
       // Make sure edicts total cost + new edict not costs more than 3
     } else {
-      this.activeEthics.push(ethic);
       ethic.status = EthicStatus.active;
       this.pickedEthicTypes.add(ethic.typeId);
+      this.governmentService.activeEthics.next([
+        ...this.governmentService.activeEthics.getValue(),
+        ethic
+      ]);
     }
 
     // Loop all ethics to manage status changes based on user input
@@ -66,7 +76,6 @@ export class EthicsComponent implements OnInit {
         }
       }
     }
-    this.ethicChanged.emit(this.activeEthics);
   }
 
   getTotalEdictCost() {

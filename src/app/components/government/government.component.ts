@@ -1,3 +1,4 @@
+import { IAuthority } from 'src/app/core/models/IAuthority';
 import { Component, OnInit } from '@angular/core';
 import { IEthic } from 'src/app/core/models/IEthic';
 
@@ -7,12 +8,7 @@ import { IEthic } from 'src/app/core/models/IEthic';
   styleUrls: ['./government.component.scss']
 })
 export class GovernmentComponent implements OnInit {
-  activeEthics: IEthic[] = [];
   constructor() {}
 
   ngOnInit() {}
-
-  ethicsChanged(activeEthics: IEthic[]) {
-    this.activeEthics = activeEthics;
-  }
 }

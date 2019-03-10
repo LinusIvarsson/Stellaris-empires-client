@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, DoCheck } from '@angular/core';
+import { GovernmentService } from './../../../core/services/government.service';
+import { Component, OnInit } from '@angular/core';
 import { IEthic } from 'src/app/core/models/IEthic';
 import { IAuthority } from 'src/app/core/models/IAuthority';
 import {
@@ -11,30 +12,23 @@ import {
   templateUrl: './authorities.component.html',
   styleUrls: ['./authorities.component.scss']
 })
-export class AuthoritiesComponent implements OnInit, DoCheck {
-  @Input() activeEthics: IEthic[];
+export class AuthoritiesComponent implements OnInit {
   activeAuthority: IAuthority;
+  activeEthics: IEthic[];
   authorities: IAuthority[] = [];
   authorityStatus = AuthorityStatus;
-  activeEthicLength = 0;
-  constructor() {}
+
+  constructor(private governmentService: GovernmentService) {}
 
   ngOnInit() {
     this.authorities = AuthoritiesUtils.getAuthorities();
-    this.activeEthicLength = this.activeEthics.length;
-  }
-
-  ngDoCheck() {
-    if (this.activeEthicLength !== this.activeEthics.length) {
-      this.activeEthicLength = this.activeEthics.length;
+    this.governmentService.activeAuthority.subscribe(authhority => {
+      this.activeAuthority = authhority;
+    });
+    this.governmentService.activeEthics.subscribe(ethics => {
+      this.activeEthics = ethics;
       this.validateAuthorities();
-      if (
-        this.activeAuthority &&
-        this.activeAuthority.status === AuthorityStatus.disabled
-      ) {
-        this.activeAuthority = undefined;
-      }
-    }
+    });
   }
 
   click(authority: IAuthority) {
@@ -44,13 +38,13 @@ export class AuthoritiesComponent implements OnInit, DoCheck {
 
     if (this.activeAuthority && authority.name === this.activeAuthority.name) {
       authority.status = AuthorityStatus.available;
-      this.activeAuthority = undefined;
+      this.governmentService.activeAuthority.next(undefined);
     } else {
       this.activeAuthority
         ? (this.activeAuthority.status = AuthorityStatus.available)
         : (this.activeAuthority = undefined);
-      this.activeAuthority = authority;
       authority.status = AuthorityStatus.active;
+      this.governmentService.activeAuthority.next(authority);
     }
   }
 

@@ -1,7 +1,9 @@
+import { GovernmentService } from './../../../core/services/government.service';
+import { IAuthority } from 'src/app/core/models/IAuthority';
 import { IEthic } from './../../../core/models/IEthic';
 import { CivicValidators } from './civic-validators';
 import { CivicsUtils, CivicStatus } from './../../../core/utils/civics-utils';
-import { Component, OnInit, Input, DoCheck } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ICivic } from 'src/app/core/models/ICivic';
 
 @Component({
@@ -9,29 +11,26 @@ import { ICivic } from 'src/app/core/models/ICivic';
   templateUrl: './civics.component.html',
   styleUrls: ['./civics.component.scss']
 })
-export class CivicsComponent implements OnInit, DoCheck {
-  @Input() activeEthics: IEthic[] = [];
-  activeEthicLength = 0;
+export class CivicsComponent implements OnInit {
+  activeEthics: IEthic[] = [];
+  activeAuthority: IAuthority;
   civicStatus = CivicStatus;
   availableCivics: ICivic[];
-  constructor() {}
+
+  constructor(private governmentService: GovernmentService) {
+    this.governmentService.activeEthics.subscribe(ethics => {
+      this.activeEthics = ethics;
+      this.validateCivics();
+    });
+    this.governmentService.activeAuthority.subscribe(authority => {
+      this.activeAuthority = authority;
+      this.validateCivics();
+    });
+  }
 
   ngOnInit() {
     this.availableCivics = CivicsUtils.getStandardEthics();
     this.validateCivics();
-  }
-
-  ngDoCheck() {
-    if (this.activeEthicLength !== this.activeEthics.length) {
-      this.activeEthicLength = this.activeEthics.length;
-      this.validateCivics();
-      //   if (
-      //     this.activeAuthority &&
-      //     this.activeAuthority.status === AuthorityStatus.disabled
-      //   ) {
-      //     this.activeAuthority = undefined;
-      //   }
-    }
   }
 
   setStatus(valid: boolean, civic: ICivic) {
@@ -43,6 +42,9 @@ export class CivicsComponent implements OnInit, DoCheck {
   }
 
   validateCivics() {
+    if (!this.availableCivics) {
+      return;
+    }
     for (const civic of this.availableCivics) {
       switch (civic.name) {
         case 'Agrian Idyll': {
@@ -51,6 +53,15 @@ export class CivicsComponent implements OnInit, DoCheck {
             civic
           );
           break;
+        }
+        case 'Aristocratic Elite': {
+          this.setStatus(
+            CivicValidators.validateAristocraticElite(
+              this.activeEthics,
+              this.activeAuthority
+            ),
+            civic
+          );
         }
       }
     }
