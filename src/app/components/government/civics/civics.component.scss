@@ -18,4 +18,14 @@
     width: 1.6rem;
     height: 1.6rem;
   }
+
+  &.active,
+  &:active {
+    border: 2px solid yellow;
+  }
+  &.disabled {
+    filter: grayscale(100%);
+    cursor: auto;
+    border: 2px solid transparent;
+  }
 }

@@ -1,5 +1,12 @@
 <div class="unselected-civics">
-  <div *ngFor="let civic of availableCivics" class="civic-item flex">
+  <div
+    *ngFor="let civic of availableCivics"
+    class="civic-item flex"
+    [ngClass]="{
+      active: civic.status === civicStatus.active,
+      disabled: civic.status === civicStatus.disabled
+    }"
+  >
     <img src="{{ civic.url }}" />
     <span>{{ civic.name }}</span>
   </div>
