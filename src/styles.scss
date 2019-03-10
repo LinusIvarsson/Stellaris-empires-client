@@ -1,13 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+span {
+  font-family: 'Orbitron', sans-serif;
+  color: #00cb9d;
+}
 .position-relative {
   position: relative;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-item {
+  flex-grow: 1;
 }
 
 .no-select {
@@ -16,4 +28,17 @@
   -moz-user-select: none;
   -o-user-select: none;
   user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px; /* for vertical scrollbars */
+  height: 12px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00cb9d;
 }

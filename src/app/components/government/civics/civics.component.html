@@ -1,1 +1,6 @@
-<p><img *ngFor="let civic of availableCivics" src="{{ civic.url }}" /></p>
+<div class="unselected-civics">
+  <div *ngFor="let civic of availableCivics" class="civic-item flex">
+    <img src="{{ civic.url }}" />
+    <span>{{ civic.name }}</span>
+  </div>
+</div>

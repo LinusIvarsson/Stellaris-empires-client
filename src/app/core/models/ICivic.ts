@@ -3,4 +3,5 @@ export interface ICivic {
   description: string;
   effects?: string[];
   url: string;
+  status: string;
 }
