@@ -1,5 +1,5 @@
 import { GovernmentService } from './../../../core/services/government.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IEthic } from 'src/app/core/models/IEthic';
 import { EthicStatus, EthicsUtils } from 'src/app/core/utils/ethics-utils';
 
@@ -20,10 +20,10 @@ export class EthicsComponent implements OnInit {
   public constructor(private governmentService: GovernmentService) {}
 
   ngOnInit() {
-    const ethics = EthicsUtils.getEthics();
-    this.centerEthics = ethics.centerEthics;
-    this.innerEthics = ethics.innerEthics;
-    this.outerEthics = ethics.outerEthics;
+    const allEthics = EthicsUtils.getEthics();
+    this.centerEthics = allEthics.centerEthics;
+    this.innerEthics = allEthics.innerEthics;
+    this.outerEthics = allEthics.outerEthics;
     this.governmentService.activeEthics.subscribe(ethics => {
       this.activeEthics = ethics;
     });
