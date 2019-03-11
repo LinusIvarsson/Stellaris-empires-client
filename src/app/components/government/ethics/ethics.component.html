@@ -1,6 +1,7 @@
 <div class="position-relative ethics-container no-select flex-item">
   <div class="ethics center">
     <img
+      class="item"
       *ngFor="let ethic of centerEthics"
       (click)="click(ethic)"
       src="{{ ethic.url }}"
@@ -12,6 +13,7 @@
   </div>
   <div class="ethics inner">
     <img
+      class="item"
       *ngFor="let ethic of innerEthics"
       (click)="click(ethic)"
       src="{{ ethic.url }}"
@@ -23,6 +25,7 @@
   </div>
   <div class="ethics outer">
     <img
+      class="item"
       *ngFor="let ethic of outerEthics"
       (click)="click(ethic)"
       src="{{ ethic.url }}"

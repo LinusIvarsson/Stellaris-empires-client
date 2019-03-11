@@ -1,7 +1,22 @@
+<div class="selected-civics">
+  <div
+    class="item civic-item flex"
+    (click)="deSelectCivic(civic)"
+    *ngFor="let civic of activeCivics"
+    [ngClass]="{
+      active: civic.status === civicStatus.active,
+      disabled: civic.status === civicStatus.disabled
+    }"
+  >
+    <img src="{{ civic.url }}" />
+    <span>{{ civic.name }}</span>
+  </div>
+</div>
 <div class="unselected-civics">
   <div
     *ngFor="let civic of availableCivics"
-    class="civic-item flex no-select"
+    class="item civic-item flex no-select"
+    (click)="civicClicked(civic)"
     [ngClass]="{
       active: civic.status === civicStatus.active,
       disabled: civic.status === civicStatus.disabled

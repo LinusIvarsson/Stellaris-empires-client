@@ -55,6 +55,9 @@ img {
   border-radius: 50%;
   border: 2px solid transparent;
   filter: grayscale(0);
+}
+
+.item {
   cursor: pointer;
 
   &:hover {
