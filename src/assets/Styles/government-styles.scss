@@ -73,4 +73,8 @@ img {
     cursor: auto;
     border: 2px solid transparent;
   }
+  &.invalid {
+    background: #ff00002e;
+    border-color: #ff00002e;
+  }
 }

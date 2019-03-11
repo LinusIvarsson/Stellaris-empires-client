@@ -5,7 +5,8 @@
     *ngFor="let civic of activeCivics"
     [ngClass]="{
       active: civic.status === civicStatus.active,
-      disabled: civic.status === civicStatus.disabled
+      disabled: civic.status === civicStatus.disabled,
+      invalid: civic.status === civicStatus.invalid
     }"
   >
     <img src="{{ civic.url }}" />

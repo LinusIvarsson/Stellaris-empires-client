@@ -34,6 +34,7 @@ export class CivicsComponent implements OnInit {
   ngOnInit() {
     this.availableCivics = CivicsUtils.getStandardEthics();
     this.validateCivics();
+    this.sortAvailableCivics();
   }
 
   deSelectCivic(civic: ICivic) {
@@ -44,6 +45,7 @@ export class CivicsComponent implements OnInit {
       ),
       1
     );
+    this.validateCivics();
     this.sortAvailableCivics();
   }
 
@@ -60,16 +62,17 @@ export class CivicsComponent implements OnInit {
         ),
         1
       );
+      this.validateCivics();
     }
   }
 
   sortAvailableCivics() {
     if (this.availableCivics) {
       this.availableCivics.sort((a, b) => {
-        if (a.name === a.name) {
-          return a.status < b.status ? -1 : a.status > b.status ? 1 : 0;
+        if (a.status === b.status) {
+          return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
         } else {
-          return a.name < b.name ? -1 : 1;
+          return a.status < b.status ? -1 : 1;
         }
       });
     }
@@ -78,6 +81,12 @@ export class CivicsComponent implements OnInit {
   setStatus(valid: boolean, civic: ICivic) {
     if (!valid) {
       civic.status = CivicStatus.disabled;
+      const activeIndex = this.activeCivics.findIndex(
+        currentCivic => currentCivic.name === civic.name
+      );
+      if (activeIndex >= 0) {
+        civic.status = CivicStatus.invalid;
+      }
     } else {
       civic.status = CivicStatus.available;
     }
@@ -91,7 +100,10 @@ export class CivicsComponent implements OnInit {
       switch (civic.name) {
         case 'Agrian Idyll': {
           this.setStatus(
-            CivicValidators.validateAgrarianIdyll(this.activeEthics),
+            CivicValidators.validateAgrarianIdyll(
+              this.activeEthics,
+              this.activeCivics
+            ),
             civic
           );
           break;
@@ -104,6 +116,17 @@ export class CivicsComponent implements OnInit {
             ),
             civic
           );
+          break;
+        }
+        case 'Slaver Guilds': {
+          this.setStatus(
+            CivicValidators.validateSlaversGuilds(
+              this.activeEthics,
+              this.activeCivics
+            ),
+            civic
+          );
+          break;
         }
       }
     }

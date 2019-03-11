@@ -4,7 +4,8 @@ import { environment } from 'src/environments/environment';
 export enum CivicStatus {
   available = 'available',
   active = 'active',
-  disabled = 'disabled'
+  disabled = 'disabled',
+  invalid = 'invalid'
 }
 
 export class CivicsUtils {
