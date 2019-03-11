@@ -7,7 +7,7 @@ export class CivicValidators {
       ethic => ethic.name === 'pacifist' || ethic.name === 'fanatic_pacifist'
     );
 
-    return !hasRequiredEthic;
+    return !!~hasRequiredEthic;
   }
 
   static validateAristocraticElite(

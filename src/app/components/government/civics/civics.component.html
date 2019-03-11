@@ -1,7 +1,7 @@
 <div class="unselected-civics">
   <div
     *ngFor="let civic of availableCivics"
-    class="civic-item flex"
+    class="civic-item flex no-select"
     [ngClass]="{
       active: civic.status === civicStatus.active,
       disabled: civic.status === civicStatus.disabled
