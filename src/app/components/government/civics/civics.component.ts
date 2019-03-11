@@ -112,7 +112,8 @@ export class CivicsComponent implements OnInit {
           this.setStatus(
             CivicValidators.validateAristocraticElite(
               this.activeEthics,
-              this.activeAuthority
+              this.activeAuthority,
+              this.activeCivics
             ),
             civic
           );
@@ -123,6 +124,26 @@ export class CivicsComponent implements OnInit {
             CivicValidators.validateSlaversGuilds(
               this.activeEthics,
               this.activeCivics
+            ),
+            civic
+          );
+          break;
+        }
+        case 'Beacon of Liberty': {
+          this.setStatus(
+            CivicValidators.validateBeaconOfLiberty(
+              this.activeAuthority,
+              this.activeEthics
+            ),
+            civic
+          );
+          break;
+        }
+        case 'Citizen Service': {
+          this.setStatus(
+            CivicValidators.validateCitizenService(
+              this.activeAuthority,
+              this.activeEthics
             ),
             civic
           );
