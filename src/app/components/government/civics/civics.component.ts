@@ -149,6 +149,16 @@ export class CivicsComponent implements OnInit {
           );
           break;
         }
+        case 'Corvée System': {
+          this.setStatus(
+            CivicValidators.validateCorvéeSystem(
+              this.activeEthics,
+              this.activeCivics
+            ),
+            civic
+          );
+          break;
+        }
       }
     }
   }
