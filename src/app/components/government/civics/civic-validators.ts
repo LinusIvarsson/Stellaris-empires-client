@@ -112,4 +112,13 @@ export class CivicValidators {
 
     return !hasConflictingEthic && !hasConflictingCivic;
   }
+
+  static validateDistinguishedAdmiralty(activeEthics: IEthic[]) {
+    const hasRequiredEthic = !!activeEthics.find(
+      ethic =>
+        ethic.name === 'militarist' || ethic.name === 'fanatic_militarist'
+    );
+
+    return hasRequiredEthic;
+  }
 }

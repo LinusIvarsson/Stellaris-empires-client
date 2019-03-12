@@ -159,6 +159,17 @@ export class CivicsComponent implements OnInit {
           );
           break;
         }
+        case 'Cutthroat Politics': {
+          this.setStatus(true, civic);
+          break;
+        }
+        case 'Distinguished Admiralty': {
+          this.setStatus(
+            CivicValidators.validateDistinguishedAdmiralty(this.activeEthics),
+            civic
+          );
+          break;
+        }
       }
     }
   }
