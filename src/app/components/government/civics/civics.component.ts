@@ -3,38 +3,43 @@ import { IAuthority } from 'src/app/core/models/IAuthority';
 import { IEthic } from './../../../core/models/IEthic';
 import { CivicValidators } from './civic-validators';
 import { CivicsUtils, CivicStatus } from './../../../core/utils/civics-utils';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ICivic } from 'src/app/core/models/ICivic';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-civics',
   templateUrl: './civics.component.html',
   styleUrls: ['./civics.component.scss']
 })
-export class CivicsComponent implements OnInit {
+export class CivicsComponent implements OnInit, OnDestroy {
   activeEthics: IEthic[] = [];
   activeAuthority: IAuthority;
   civicStatus = CivicStatus;
   availableCivics: ICivic[];
   activeCivics: ICivic[] = [];
 
-  constructor(private governmentService: GovernmentService) {
-    this.governmentService.activeEthics.subscribe(ethics => {
-      this.activeEthics = ethics;
-      this.validateCivics();
-      this.sortAvailableCivics();
-    });
-    this.governmentService.activeAuthority.subscribe(authority => {
-      this.activeAuthority = authority;
-      this.validateCivics();
-      this.sortAvailableCivics();
-    });
-  }
+  subscriptions: Subscription = new Subscription();
+
+  constructor(private governmentService: GovernmentService) {}
 
   ngOnInit() {
     this.availableCivics = CivicsUtils.getStandardEthics();
-    this.validateCivics();
-    this.sortAvailableCivics();
+    this.subscriptions.add(
+      this.governmentService.activeEthics.subscribe(ethics => {
+        this.activeEthics = ethics;
+        this.validateCivics();
+        this.sortAvailableCivics();
+      })
+    );
+
+    this.subscriptions.add(
+      this.governmentService.activeAuthority.subscribe(authority => {
+        this.activeAuthority = authority;
+        this.validateCivics();
+        this.sortAvailableCivics();
+      })
+    );
   }
 
   deSelectCivic(civic: ICivic) {
@@ -100,17 +105,14 @@ export class CivicsComponent implements OnInit {
       switch (civic.name) {
         case 'Agrian Idyll': {
           this.setStatus(
-            CivicValidators.validateAgrarianIdyll(
-              this.activeEthics,
-              this.activeCivics
-            ),
+            CivicValidators.agrarianIdyll(this.activeEthics, this.activeCivics),
             civic
           );
           break;
         }
         case 'Aristocratic Elite': {
           this.setStatus(
-            CivicValidators.validateAristocraticElite(
+            CivicValidators.aristocraticElite(
               this.activeEthics,
               this.activeAuthority,
               this.activeCivics
@@ -121,17 +123,14 @@ export class CivicsComponent implements OnInit {
         }
         case 'Slaver Guilds': {
           this.setStatus(
-            CivicValidators.validateSlaversGuilds(
-              this.activeEthics,
-              this.activeCivics
-            ),
+            CivicValidators.slaversGuilds(this.activeEthics, this.activeCivics),
             civic
           );
           break;
         }
         case 'Beacon of Liberty': {
           this.setStatus(
-            CivicValidators.validateBeaconOfLiberty(
+            CivicValidators.beaconOfLiberty(
               this.activeAuthority,
               this.activeEthics
             ),
@@ -141,7 +140,7 @@ export class CivicsComponent implements OnInit {
         }
         case 'Citizen Service': {
           this.setStatus(
-            CivicValidators.validateCitizenService(
+            CivicValidators.citizenService(
               this.activeAuthority,
               this.activeEthics
             ),
@@ -151,10 +150,7 @@ export class CivicsComponent implements OnInit {
         }
         case 'Corvée System': {
           this.setStatus(
-            CivicValidators.validateCorvéeSystem(
-              this.activeEthics,
-              this.activeCivics
-            ),
+            CivicValidators.corvéeSystem(this.activeEthics, this.activeCivics),
             civic
           );
           break;
@@ -165,12 +161,113 @@ export class CivicsComponent implements OnInit {
         }
         case 'Distinguished Admiralty': {
           this.setStatus(
-            CivicValidators.validateDistinguishedAdmiralty(this.activeEthics),
+            CivicValidators.distinguishedAdmiralty(this.activeEthics),
             civic
           );
           break;
         }
+        case 'Efficient Bureaucracy': {
+          this.setStatus(true, civic);
+          break;
+        }
+        case 'Environmentalist': {
+          this.setStatus(true, civic);
+          break;
+        }
+        case 'Exalted Priesthood': {
+          this.setStatus(
+            CivicValidators.exaltedPriesthood(
+              this.activeAuthority,
+              this.activeEthics,
+              this.activeCivics
+            ),
+            civic
+          );
+          break;
+        }
+        case 'Feudal Society': {
+          this.setStatus(
+            CivicValidators.feudalSociety(this.activeAuthority),
+            civic
+          );
+          break;
+        }
+        case 'Free Haven': {
+          this.setStatus(
+            CivicValidators.freeHaven(this.activeEthics, this.activeCivics),
+            civic
+          );
+          break;
+        }
+        case 'Functional Architecture': {
+          this.setStatus(true, civic);
+          break;
+        }
+        case 'Idealistic Foundation': {
+          this.setStatus(
+            CivicValidators.idealisticFoundation(this.activeEthics),
+            civic
+          );
+          break;
+        }
+        case 'Imperial Cult': {
+          this.setStatus(
+            CivicValidators.imperialCult(
+              this.activeAuthority,
+              this.activeEthics
+            ),
+            civic
+          );
+          break;
+        }
+        case 'Inward Perfection': {
+          this.setStatus(
+            CivicValidators.inwardPerfection(this.activeEthics),
+            civic
+          );
+          break;
+        }
+        case 'Meritocracy': {
+          this.setStatus(
+            CivicValidators.meritocracy(this.activeAuthority),
+            civic
+          );
+          break;
+        }
+        case 'Mining Guilds': {
+          this.setStatus(true, civic);
+          break;
+        }
+        case 'Nationalistic Zeal': {
+          this.setStatus(
+            CivicValidators.nationalisticZeal(this.activeEthics),
+            civic
+          );
+          break;
+        }
+        case 'Parliamentary System': {
+          this.setStatus(
+            CivicValidators.parliamentarySystem(this.activeAuthority),
+            civic
+          );
+          break;
+        }
+        case 'Philosopher King': {
+          this.setStatus(
+            CivicValidators.philosopherKing(this.activeAuthority),
+            civic
+          );
+          break;
+        }
+        case 'Police State': {
+          this.setStatus(CivicValidators.policeState(this.activeEthics), civic);
+          break;
+        }
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
