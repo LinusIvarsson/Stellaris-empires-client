@@ -1,34 +1,43 @@
 import { GovernmentService } from './../../../core/services/government.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IEthic } from 'src/app/core/models/IEthic';
 import { IAuthority } from 'src/app/core/models/IAuthority';
 import {
   AuthoritiesUtils,
   AuthorityStatus
 } from 'src/app/core/utils/authorities-utils';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-authorities',
   templateUrl: './authorities.component.html',
   styleUrls: ['./authorities.component.scss']
 })
-export class AuthoritiesComponent implements OnInit {
+export class AuthoritiesComponent implements OnInit, OnDestroy {
   activeAuthority: IAuthority;
   activeEthics: IEthic[];
   authorities: IAuthority[] = [];
   authorityStatus = AuthorityStatus;
 
+  subscriptions: Subscription = new Subscription();
+
   constructor(private governmentService: GovernmentService) {}
 
   ngOnInit() {
     this.authorities = AuthoritiesUtils.getAuthorities();
-    this.governmentService.activeAuthority.subscribe(authhority => {
-      this.activeAuthority = authhority;
-    });
-    this.governmentService.activeEthics.subscribe(ethics => {
-      this.activeEthics = ethics;
-      this.validateAuthorities();
-    });
+
+    this.subscriptions.add(
+      this.governmentService.activeAuthority.subscribe(authhority => {
+        this.activeAuthority = authhority;
+      })
+    );
+
+    this.subscriptions.add(
+      this.governmentService.activeEthics.subscribe(ethics => {
+        this.activeEthics = ethics;
+        this.validateAuthorities();
+      })
+    );
   }
 
   click(authority: IAuthority) {
@@ -173,5 +182,9 @@ export class AuthoritiesComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

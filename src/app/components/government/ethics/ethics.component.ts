@@ -1,14 +1,15 @@
 import { GovernmentService } from './../../../core/services/government.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IEthic } from 'src/app/core/models/IEthic';
 import { EthicStatus, EthicsUtils } from 'src/app/core/utils/ethics-utils';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ethics',
   templateUrl: './ethics.component.html',
   styleUrls: ['./ethics.component.scss']
 })
-export class EthicsComponent implements OnInit {
+export class EthicsComponent implements OnInit, OnDestroy {
   loaded: boolean;
   ethicStatus = EthicStatus;
   centerEthics: IEthic[];
@@ -17,6 +18,8 @@ export class EthicsComponent implements OnInit {
   pickedEthicTypes: Set<Number> = new Set();
   activeEthics: IEthic[] = [];
 
+  subscriptions: Subscription = new Subscription();
+
   public constructor(private governmentService: GovernmentService) {}
 
   ngOnInit() {
@@ -24,9 +27,11 @@ export class EthicsComponent implements OnInit {
     this.centerEthics = allEthics.centerEthics;
     this.innerEthics = allEthics.innerEthics;
     this.outerEthics = allEthics.outerEthics;
-    this.governmentService.activeEthics.subscribe(ethics => {
-      this.activeEthics = ethics;
-    });
+    this.subscriptions.add(
+      this.governmentService.activeEthics.subscribe(ethics => {
+        this.activeEthics = ethics;
+      })
+    );
   }
 
   click(ethic: IEthic) {
@@ -82,5 +87,9 @@ export class EthicsComponent implements OnInit {
     return this.activeEthics.reduce((acc, x: IEthic) => {
       return (acc += x.cost);
     }, 0);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
