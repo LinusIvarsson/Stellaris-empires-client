@@ -251,4 +251,79 @@ export class CivicValidators {
 
     return !hasConflictingEthic;
   }
+
+  static shadowCouncil(activeAuthority: IAuthority) {
+    if (!activeAuthority) {
+      return true;
+    }
+    const hasConflictedAuthority = activeAuthority.name === 'Imperial';
+
+    return !hasConflictedAuthority;
+  }
+
+  static technocracy(activeEthics: IEthic[], activeCivics: ICivic[]) {
+    const hasRequiredEthic = !!activeEthics.find(
+      ethic =>
+        ethic.name === 'materialist' || ethic.name === 'fanatic_materialist'
+    );
+    const hasConflictingCivic = !!activeCivics.find(
+      civic => civic.name === 'Shared Burdens'
+    );
+
+    return hasRequiredEthic && !hasConflictingCivic;
+  }
+
+  static warriorCulture(activeEthics: IEthic[]) {
+    const hasRequiredEthic = !!activeEthics.find(
+      ethic =>
+        ethic.name === 'militarist' || ethic.name === 'fanatic_militarist'
+    );
+
+    return hasRequiredEthic;
+  }
+
+  static fanaticPurifiers(activeEthics: IEthic[], activeCivics: ICivic[]) {
+    const hasRequiredEthic = !!activeEthics.find(
+      ethic => ethic.name === 'fanatic_xenophobe'
+    );
+    const hasRequiredEthic2 = !!activeEthics.find(
+      ethic => ethic.name === 'militarist' || ethic.name === 'spiritualist'
+    );
+    const hasConflictingCivic = !!activeCivics.find(
+      civic =>
+        civic.name === 'Mechanist' ||
+        civic.name === 'Syncretic Evolution' ||
+        civic.name === 'Barbaric Despoilers'
+    );
+
+    return hasRequiredEthic && hasRequiredEthic2 && !hasConflictingCivic;
+  }
+
+  static mechanist(activeEthics: IEthic[], activeCivics: ICivic[]) {
+    const hasRequiredEthic = !!activeEthics.find(
+      ethic =>
+        ethic.name === 'materialist' || ethic.name === 'fanatic_materialist'
+    );
+
+    const hasConflictingCivics = !!activeCivics.find(
+      civic =>
+        civic.name === 'Syncretic Evolution' ||
+        civic.name === 'Life-Seeded' ||
+        civic.name === 'Post-Apocalyptic'
+    );
+
+    return hasRequiredEthic && !hasConflictingCivics;
+  }
+
+  static syncreticEvolution(activeCivics: ICivic[]) {
+    const hasConflictingCivic = !!activeCivics.find(
+      civic =>
+        civic.name === 'Mechanist' ||
+        civic.name === 'Fanatic Purifiers' ||
+        civic.name === 'Agrarian Idyll' ||
+        civic.name === 'Life-Seeded' ||
+        civic.name === 'Post-Apocalyptic'
+    );
+    return !hasConflictingCivic;
+  }
 }

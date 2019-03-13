@@ -13,7 +13,7 @@ export class CivicsUtils {
     const baseUrl = environment.baseUrl;
     return [
       {
-        name: 'Agrian Idyll',
+        name: 'Agrarian Idyll',
         description:
           'A simple and peaceful life can often be the most rewarding. \
 		  This agrarian society has, to a large extent, managed to avoid large-scale urbanization.',

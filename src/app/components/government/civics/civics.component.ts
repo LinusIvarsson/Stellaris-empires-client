@@ -103,7 +103,7 @@ export class CivicsComponent implements OnInit, OnDestroy {
     }
     for (const civic of [...this.availableCivics, ...this.activeCivics]) {
       switch (civic.name) {
-        case 'Agrian Idyll': {
+        case 'Agrarian Idyll': {
           this.setStatus(
             CivicValidators.agrarianIdyll(this.activeEthics, this.activeCivics),
             civic
@@ -261,6 +261,51 @@ export class CivicsComponent implements OnInit, OnDestroy {
         }
         case 'Police State': {
           this.setStatus(CivicValidators.policeState(this.activeEthics), civic);
+          break;
+        }
+        case 'Shadow Council': {
+          this.setStatus(
+            CivicValidators.shadowCouncil(this.activeAuthority),
+            civic
+          );
+          break;
+        }
+        case 'Technocracy': {
+          this.setStatus(
+            CivicValidators.technocracy(this.activeEthics, this.activeCivics),
+            civic
+          );
+          break;
+        }
+        case 'Warrior Culture': {
+          this.setStatus(
+            CivicValidators.warriorCulture(this.activeEthics),
+            civic
+          );
+          break;
+        }
+        case 'Fanatic Purifiers': {
+          this.setStatus(
+            CivicValidators.fanaticPurifiers(
+              this.activeEthics,
+              this.activeCivics
+            ),
+            civic
+          );
+          break;
+        }
+        case 'Mechanist': {
+          this.setStatus(
+            CivicValidators.mechanist(this.activeEthics, this.activeCivics),
+            civic
+          );
+          break;
+        }
+        case 'Syncretic Evolution': {
+          this.setStatus(
+            CivicValidators.syncreticEvolution(this.activeCivics),
+            civic
+          );
           break;
         }
       }
