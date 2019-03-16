@@ -9,7 +9,7 @@ export enum CivicStatus {
 }
 
 export class CivicsUtils {
-  public static getStandardEthics(): ICivic[] {
+  public static getStandardCivics(): ICivic[] {
     const baseUrl = environment.baseUrl;
     return [
       {
@@ -290,6 +290,108 @@ export class CivicsUtils {
           'This society believes in an equitable distribution of resources, making little to no distinction \
 		  between the needs of ruler and ruled. All work together for the benefit of the whole.',
         url: `${baseUrl}/assets/Images/Civics/Standard/Civic_shared_burdens.png`,
+        status: CivicStatus.disabled
+      }
+    ];
+  }
+
+  public static getCorporateCivics(): ICivic[] {
+    const baseUrl = environment.baseUrl;
+
+    return [
+      {
+        name: 'Brand Loyalty',
+        description:
+          'This Megacorporation has fostered a great sense of brand loyalty among its internal consumer \
+		   base. Its catchy corporate slogans can be recited by nearly everyone.',
+        url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_brand_loyalty.png`,
+        status: CivicStatus.disabled
+      },
+      {
+        name: 'Criminal Heritage',
+        description:
+          'This megacorporation can trace its origins back to a crime syndicate that eventually \
+		  grew powerful enough to supplant all forms of local government.',
+        url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_criminal_heritage.png`,
+        status: CivicStatus.disabled
+      },
+      {
+        name: 'Franchising',
+        description:
+          'This megacorporation relies heavily on franchising. Subsidiaries share a greater cut of their \
+		  profits with their corporate overlord, in exchange for a license to market their goods under established brands.',
+        url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_franchising.png`,
+        status: CivicStatus.disabled
+      },
+      {
+        name: 'Free Traders',
+        description:
+          'The trading fleets of this megacorporation are bolstered by semi-independent free traders operating under license.',
+        url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_free_traders.png`,
+        status: CivicStatus.disabled
+      },
+      {
+        name: 'Gospel of the Masses',
+        description:
+          'This Megacorporation embraces a curious blend of commercial and spiritualistic values, in which the position of \
+		  ordained minister and corporate officer have merged into a single role.',
+        url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_gospel_of_the_masses.png`,
+        status: CivicStatus.disabled
+      },
+      {
+        name: 'Indentured Assets',
+        description:
+          'This Megacorporation specializes in large indentured workforces. It has little to do with the barbaric practice of \
+		  slavery - these workers are merely paying off their debts... indefinitely.',
+        url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_indentured_assets.png`,
+        status: CivicStatus.disabled
+      },
+      {
+        name: 'Media Conglomerate',
+        description:
+          'Before branching into other fields, this Megacorporation began its rise to fortune as a media conglomerate. Its \
+		  PR department are still masters of spinning stories and presenting the latest quarterly report in the most advantageous way.',
+        url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_media_conglomerate.png`,
+        status: CivicStatus.disabled
+      },
+      {
+        name: 'Naval Contractors',
+        description:
+          'This Megacorporation relies on several semi-independant navy contractors to increase its fleet size. \
+		  Competing for bids, the contractors are always struggling to outperform one another.',
+        url: `${baseUrl}../../../assets/Images/Civics/Corporate/Civic_naval_contractors.png`,
+        status: CivicStatus.disabled
+      },
+      {
+        name: 'Private Military Companies',
+        description:
+          'This Megacorporation has a large number of powerful private military companies on its payroll. \
+		  These mercenary contractors augment its ground forces.',
+        url: `${baseUrl}../../../assets/Images/Civics/Corporate/Civic_private_military_companies.png`,
+        status: CivicStatus.disabled
+      },
+      {
+        name: 'Private Prospectors',
+        description:
+          'Building better worlds is hazardous work, but this Megacorporation relies on private prospectors \
+		  to chart and establish footholds on promising planets.',
+        url: `${baseUrl}../../../assets/Images/Civics/Corporate/Civic_private_prospectors.png`,
+        status: CivicStatus.disabled
+      },
+      {
+        name: 'Ruthless Competition',
+        description:
+          'All level of society in this Megacorporation are constantly vying with each other in ruthless competition. \
+		  Its a dog-eat-dog world.',
+        url: `${baseUrl}../../../assets/Images/Civics/Corporate/Civic_ruthless_competition.png`,
+        status: CivicStatus.disabled
+      },
+      {
+        name: 'Trading Posts',
+        description:
+          'Good business is where you find it. This Megacorporation has a long tradition of spreading its influence through\
+		   the establishment on trading posts. Their starbases are busy centers of trade.',
+        url: `${baseUrl}../../../assets/Images/Civics/Corporate/Civic_trading_posts.png`,
         status: CivicStatus.disabled
       }
     ];

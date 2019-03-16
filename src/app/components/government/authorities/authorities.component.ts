@@ -27,8 +27,8 @@ export class AuthoritiesComponent implements OnInit, OnDestroy {
     this.authorities = AuthoritiesUtils.getAuthorities();
 
     this.subscriptions.add(
-      this.governmentService.activeAuthority.subscribe(authhority => {
-        this.activeAuthority = authhority;
+      this.governmentService.activeAuthority.subscribe(authority => {
+        this.activeAuthority = authority;
       })
     );
 
