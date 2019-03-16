@@ -308,6 +308,48 @@ export class CivicsComponent implements OnInit, OnDestroy {
           );
           break;
         }
+        case 'Life-Seeded': {
+          this.setStatus(CivicValidators.lifeSeeded(this.activeCivics), civic);
+          break;
+        }
+        case 'Post-Apocalyptic': {
+          this.setStatus(
+            CivicValidators.postApocalyptic(this.activeCivics),
+            civic
+          );
+          break;
+        }
+        case 'Barbaric Despoilers': {
+          this.setStatus(
+            CivicValidators.barbaricDespoilers(
+              this.activeEthics,
+              this.activeCivics
+            ),
+            civic
+          );
+          break;
+        }
+        case 'Byzantine Bureaucracy': {
+          this.setStatus(
+            CivicValidators.byzantineBureaucray(this.activeCivics),
+            civic
+          );
+          break;
+        }
+        case 'Merchant Guilds': {
+          this.setStatus(
+            CivicValidators.merchantGuilds(this.activeCivics),
+            civic
+          );
+          break;
+        }
+        case 'Shared Burdens': {
+          this.setStatus(
+            CivicValidators.sharedBurdens(this.activeEthics, this.activeCivics),
+            civic
+          );
+          break;
+        }
       }
     }
   }

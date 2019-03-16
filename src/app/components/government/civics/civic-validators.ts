@@ -326,4 +326,90 @@ export class CivicValidators {
     );
     return !hasConflictingCivic;
   }
+
+  static lifeSeeded(activeCivics: ICivic[]) {
+    const hasConflictingCivic = !!activeCivics.find(
+      civic =>
+        civic.name === 'Mechanist' ||
+        civic.name === 'Syncretic Evolution' ||
+        civic.name === 'Post-Apocalyptic'
+    );
+    return !hasConflictingCivic;
+  }
+
+  static postApocalyptic(activeCivics: ICivic[]) {
+    const hasConflictingCivic = !!activeCivics.find(
+      civic =>
+        civic.name === 'Mechanist' ||
+        civic.name === 'Agrarian Idyll' ||
+        civic.name === 'Syncretic Evolution' ||
+        civic.name === 'Life-Seeded'
+    );
+    return !hasConflictingCivic;
+  }
+
+  static barbaricDespoilers(activeEthics: IEthic[], activeCivics: ICivic[]) {
+    const hasRequiredEthic = !!activeEthics.find(
+      ethic =>
+        ethic.name === 'militarist' || ethic.name === 'fanatic_militarist'
+    );
+    const hasRequiredEthic2 = !!activeEthics.find(
+      ethic =>
+        ethic.name === 'authoritarian' ||
+        ethic.name === 'fanatic_authoritarian' ||
+        ethic.name === 'xenophobe' ||
+        ethic.name === 'fanatic_xenophobe'
+    );
+    const hasConflictingEthic = !!activeEthics.find(
+      ethic => ethic.name === 'xenophile' || ethic.name === 'fanatic_xenophile'
+    );
+    const hasConflictingCivic = !!activeCivics.find(
+      civic => civic.name === 'Fanatic Purifiers'
+    );
+
+    return (
+      hasRequiredEthic &&
+      hasRequiredEthic2 &&
+      !hasConflictingEthic &&
+      !hasConflictingCivic
+    );
+  }
+
+  static byzantineBureaucray(activeCivics: ICivic[]) {
+    const hasConflictingCivic = !!activeCivics.find(
+      civic =>
+        civic.name === 'Exalted Priesthood' ||
+        civic.name === 'Aristocratic Elite' ||
+        civic.name === 'Technocracy' ||
+        civic.name === 'Merchant Guilds'
+    );
+
+    return !hasConflictingCivic;
+  }
+
+  static merchantGuilds(activeCivics: ICivic[]) {
+    const hasConflictingCivic = !!activeCivics.find(
+      civic =>
+        civic.name === 'Exalted Priesthood' ||
+        civic.name === 'Aristocratic Elite' ||
+        civic.name === 'Technocracy' ||
+        civic.name === 'Byzantine Bureaucracy'
+    );
+
+    return !hasConflictingCivic;
+  }
+
+  static sharedBurdens(activeEthics: IEthic[], activeCivics: ICivic[]) {
+    const hasRequiredEthic = !!activeEthics.find(
+      ethic => ethic.name === 'fanatic_eqalitarian'
+    );
+    const hasConflictingEthic = !!activeEthics.find(
+      ethic => ethic.name === 'xenophobe' || ethic.name === 'fanatic_xenophobe'
+    );
+    const hasConflictingCivic = !!activeCivics.find(
+      civic => civic.name === 'Technocracy'
+    );
+
+    return hasRequiredEthic && !hasConflictingEthic && !hasConflictingCivic;
+  }
 }
