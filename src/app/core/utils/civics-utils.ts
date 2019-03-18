@@ -8,6 +8,13 @@ export enum CivicStatus {
   invalid = 'invalid'
 }
 
+export enum CivicTypes {
+  standard = 'Standard',
+  corporate = 'Corporate',
+  gestalt = 'Gestalt',
+  machine = 'Machine'
+}
+
 export class CivicsUtils {
   public static getStandardCivics(): ICivic[] {
     const baseUrl = environment.baseUrl;

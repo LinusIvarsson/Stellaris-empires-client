@@ -1,7 +1,6 @@
 import { IAuthority } from 'src/app/core/models/IAuthority';
 import { IEthic } from 'src/app/core/models/IEthic';
 import { ICivic } from 'src/app/core/models/ICivic';
-import { EthicStatus } from 'src/app/core/utils/ethics-utils';
 export class CivicValidators {
   static agrarianIdyll(activeEthics: IEthic[], activeCivics: ICivic[]) {
     const hasRequiredEthic = !!activeEthics.find(
@@ -411,5 +410,26 @@ export class CivicValidators {
     );
 
     return hasRequiredEthic && !hasConflictingEthic && !hasConflictingCivic;
+  }
+
+  //
+  // Corporate
+  //
+
+  static gospelOfTheMasses(activeEthics: IEthic[]) {
+    const hasRequiredEthic = !!activeEthics.find(
+      ethic =>
+        ethic.name === 'spiritualist' || ethic.name === 'fanatic_spiritualist'
+    );
+
+    return hasRequiredEthic;
+  }
+
+  static indenturedAssets(activeEthics: IEthic[]) {
+    const hasRequiredEthic = !!activeEthics.find(
+      ethic => ethic.name === 'authoritarian'
+    );
+
+    return hasRequiredEthic;
   }
 }

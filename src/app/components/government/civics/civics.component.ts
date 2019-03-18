@@ -1,8 +1,16 @@
+import {
+  AuthoritiesUtils,
+  AuthorityStatus
+} from './../../../core/utils/authorities-utils';
 import { GovernmentService } from './../../../core/services/government.service';
 import { IAuthority } from 'src/app/core/models/IAuthority';
 import { IEthic } from './../../../core/models/IEthic';
 import { CivicValidators } from './civic-validators';
-import { CivicsUtils, CivicStatus } from './../../../core/utils/civics-utils';
+import {
+  CivicsUtils,
+  CivicStatus,
+  CivicTypes
+} from './../../../core/utils/civics-utils';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ICivic } from 'src/app/core/models/ICivic';
 import { Subscription } from 'rxjs';
@@ -18,49 +26,28 @@ export class CivicsComponent implements OnInit, OnDestroy {
   civicStatus = CivicStatus;
   availableCivics: ICivic[];
   activeCivics: ICivic[] = [];
-
+  currentCivicType: string;
   subscriptions: Subscription = new Subscription();
 
   constructor(private governmentService: GovernmentService) {}
 
   ngOnInit() {
+    this.currentCivicType = CivicTypes.standard;
     this.setCivics();
 
-    // this.subscriptions.add(
-    //   this.governmentService.activeAuthority.subscribe(authority => {
-    //     this.activeAuthority = authority;
-    //     debugger;
-    //     if (authority.name === 'Corporate') {
-    //       this.availableCivics = CivicsUtils.getCorporateCivics();
-    //     } else {
-    //     }
-    //     this.validateCivicsStandardCivics();
-    //     this.sortAvailableCivics();
-    //   })
-    // );
     this.subscriptions.add(
       this.governmentService.activeAuthority.subscribe(authority => {
         this.activeAuthority = authority;
         this.setCivics();
-        //   this.availableCivics = CivicsUtils.getCorporateCivics();
-
-        //   this.availableCivics = CivicsUtils.getStandardCivics();
-
-        // this.activeAuthority = authority;
-        // if (authority.name === 'Corporate') {
-        // }
-        //     if (authority.name === 'Corporate') {
-        //       this.availableCivics = CivicsUtils.getCorporateCivics();
-        //     } else {
-        //     }
-        //     this.validateCivicsStandardCivics();
-        //     this.sortAvailableCivics();
+        this.validate();
+        this.sortAvailableCivics();
       })
     );
     this.subscriptions.add(
       this.governmentService.activeEthics.subscribe(ethics => {
         this.activeEthics = ethics;
-        this.validateCivicsStandardCivics();
+        this.setCivics();
+        this.validate();
         this.sortAvailableCivics();
       })
     );
@@ -74,7 +61,7 @@ export class CivicsComponent implements OnInit, OnDestroy {
       ),
       1
     );
-    this.validateCivicsStandardCivics();
+    this.validate();
     this.sortAvailableCivics();
   }
 
@@ -91,7 +78,7 @@ export class CivicsComponent implements OnInit, OnDestroy {
         ),
         1
       );
-      this.validateCivicsStandardCivics();
+      this.validate();
       this.sortAvailableCivics();
     }
   }
@@ -114,12 +101,25 @@ export class CivicsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.activeAuthority.name === 'Corporate') {
+    if (this.activeAuthority.name === CivicTypes.corporate) {
+      this.currentCivicType = CivicTypes.corporate;
       this.availableCivics = CivicsUtils.getCorporateCivics();
       return;
     }
 
+    this.currentCivicType = CivicTypes.standard;
     this.availableCivics = CivicsUtils.getStandardCivics();
+  }
+
+  validate() {
+    if (this.currentCivicType === CivicTypes.standard) {
+      this.validateStandardCivics();
+      return;
+    }
+    if (this.currentCivicType === CivicTypes.corporate) {
+      this.validateCorporateCivics();
+      return;
+    }
   }
 
   setStatus(valid: boolean, civic: ICivic) {
@@ -136,7 +136,48 @@ export class CivicsComponent implements OnInit, OnDestroy {
     }
   }
 
-  validateCivicsStandardCivics() {
+  validateCorporateCivics() {
+    if (!this.availableCivics) {
+      return;
+    }
+
+    for (const civic of [...this.availableCivics, ...this.activeCivics]) {
+      switch (civic.name) {
+        case 'Brand Loyalty': {
+          this.setStatus(true, civic);
+          break;
+        }
+        case 'Criminal Heritage': {
+          this.setStatus(true, civic);
+          break;
+        }
+        case 'Franchising': {
+          this.setStatus(true, civic);
+          break;
+        }
+        case 'Free Traders': {
+          this.setStatus(true, civic);
+          break;
+        }
+        case 'Gospel of the Masses': {
+          this.setStatus(
+            CivicValidators.gospelOfTheMasses(this.activeEthics),
+            civic
+          );
+          break;
+        }
+        case 'Indentured Assets': {
+          this.setStatus(
+            CivicValidators.indenturedAssets(this.activeEthics),
+            civic
+          );
+          break;
+        }
+      }
+    }
+  }
+
+  validateStandardCivics() {
     if (!this.availableCivics) {
       return;
     }
