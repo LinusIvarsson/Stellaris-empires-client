@@ -1,8 +1,291 @@
-import { IAuthority } from 'src/app/core/models/IAuthority';
 import { IEthic } from 'src/app/core/models/IEthic';
 import { ICivic } from 'src/app/core/models/ICivic';
-export class CivicValidators {
-  static agrarianIdyll(activeEthics: IEthic[], activeCivics: ICivic[]) {
+import { IAuthority } from 'src/app/core/models/IAuthority';
+import { CivicStatus } from 'src/app/core/utils/civics-utils';
+
+export class StandardCivicValidators {
+  validateStandardCivics(
+    activeEthics: IEthic[],
+    activeCivics: ICivic[],
+    availableCivics: ICivic[],
+    activeAuthority: IAuthority
+  ) {
+    for (const civic of [...availableCivics, ...activeCivics]) {
+      switch (civic.name) {
+        case 'Agrarian Idyll': {
+          this.setStatus(
+            this.agrarianIdyll(activeEthics, activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Aristocratic Elite': {
+          this.setStatus(
+            this.aristocraticElite(activeEthics, activeAuthority, activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Slaver Guilds': {
+          this.setStatus(
+            this.slaversGuilds(activeEthics, activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Beacon of Liberty': {
+          this.setStatus(
+            this.beaconOfLiberty(activeAuthority, activeEthics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Citizen Service': {
+          this.setStatus(
+            this.citizenService(activeAuthority, activeEthics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Corvée System': {
+          this.setStatus(
+            this.corvéeSystem(activeEthics, activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Cutthroat Politics': {
+          this.setStatus(true, civic, activeCivics);
+          break;
+        }
+        case 'Distinguished Admiralty': {
+          this.setStatus(
+            this.distinguishedAdmiralty(activeEthics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Efficient Bureaucracy': {
+          this.setStatus(true, civic, activeCivics);
+          break;
+        }
+        case 'Environmentalist': {
+          this.setStatus(true, civic, activeCivics);
+          break;
+        }
+        case 'Exalted Priesthood': {
+          this.setStatus(
+            this.exaltedPriesthood(activeAuthority, activeEthics, activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Feudal Society': {
+          this.setStatus(
+            this.feudalSociety(activeAuthority),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Free Haven': {
+          this.setStatus(
+            this.freeHaven(activeEthics, activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Functional Architecture': {
+          this.setStatus(true, civic, activeCivics);
+          break;
+        }
+        case 'Idealistic Foundation': {
+          this.setStatus(
+            this.idealisticFoundation(activeEthics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Imperial Cult': {
+          this.setStatus(
+            this.imperialCult(activeAuthority, activeEthics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Inward Perfection': {
+          this.setStatus(
+            this.inwardPerfection(activeEthics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Meritocracy': {
+          this.setStatus(
+            this.meritocracy(activeAuthority),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Mining Guilds': {
+          this.setStatus(true, civic, activeCivics);
+          break;
+        }
+        case 'Nationalistic Zeal': {
+          this.setStatus(
+            this.nationalisticZeal(activeEthics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Parliamentary System': {
+          this.setStatus(
+            this.parliamentarySystem(activeAuthority),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Philosopher King': {
+          this.setStatus(
+            this.philosopherKing(activeAuthority),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Police State': {
+          this.setStatus(this.policeState(activeEthics), civic, activeCivics);
+          break;
+        }
+        case 'Shadow Council': {
+          this.setStatus(
+            this.shadowCouncil(activeAuthority),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Technocracy': {
+          this.setStatus(
+            this.technocracy(activeEthics, activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Warrior Culture': {
+          this.setStatus(
+            this.warriorCulture(activeEthics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Fanatic Purifiers': {
+          this.setStatus(
+            this.fanaticPurifiers(activeEthics, activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Mechanist': {
+          this.setStatus(
+            this.mechanist(activeEthics, activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Syncretic Evolution': {
+          this.setStatus(
+            this.syncreticEvolution(activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Life-Seeded': {
+          this.setStatus(this.lifeSeeded(activeCivics), civic, activeCivics);
+          break;
+        }
+        case 'Post-Apocalyptic': {
+          this.setStatus(
+            this.postApocalyptic(activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Barbaric Despoilers': {
+          this.setStatus(
+            this.barbaricDespoilers(activeEthics, activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Byzantine Bureaucracy': {
+          this.setStatus(
+            this.byzantineBureaucray(activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Merchant Guilds': {
+          this.setStatus(
+            this.merchantGuilds(activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        case 'Shared Burdens': {
+          this.setStatus(
+            this.sharedBurdens(activeEthics, activeCivics),
+            civic,
+            activeCivics
+          );
+          break;
+        }
+        default: {
+          civic.status = CivicStatus.disabled;
+        }
+      }
+    }
+  }
+
+  private setStatus(valid: boolean, civic: ICivic, activeCivics: ICivic[]) {
+    if (!valid) {
+      civic.status = CivicStatus.disabled;
+      const activeIndex = activeCivics.findIndex(
+        currentCivic => currentCivic.name === civic.name
+      );
+      if (activeIndex >= 0) {
+        civic.status = CivicStatus.invalid;
+      }
+    } else {
+      civic.status = CivicStatus.available;
+    }
+  }
+
+  private agrarianIdyll(activeEthics: IEthic[], activeCivics: ICivic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic => ethic.name === 'pacifist' || ethic.name === 'fanatic_pacifist'
     );
@@ -16,7 +299,7 @@ export class CivicValidators {
     return hasRequiredEthic && !hasConflictingEthic;
   }
 
-  static aristocraticElite(
+  private aristocraticElite(
     activeEthics: IEthic[],
     activeAuthority: IAuthority,
     activeCivics: ICivic[]
@@ -46,7 +329,7 @@ export class CivicValidators {
     );
   }
 
-  static beaconOfLiberty(activeAuthority: IAuthority, activeEthics: IEthic[]) {
+  private beaconOfLiberty(activeAuthority: IAuthority, activeEthics: IEthic[]) {
     if (!activeAuthority) {
       return false;
     }
@@ -63,7 +346,7 @@ export class CivicValidators {
     return hasRequiredAuthority && hasRequiredEthic && !hasConflictingEthic;
   }
 
-  static slaversGuilds(activeEthics: IEthic[], activeCivics: ICivic[]) {
+  private slaversGuilds(activeEthics: IEthic[], activeCivics: ICivic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic =>
         ethic.name === 'authoritarian' || ethic.name === 'fanatic_authoritarian'
@@ -75,7 +358,7 @@ export class CivicValidators {
     return hasRequiredEthic && !hasConflictingCivics;
   }
 
-  static citizenService(activeAuthority: IAuthority, activeEthics: IEthic[]) {
+  private citizenService(activeAuthority: IAuthority, activeEthics: IEthic[]) {
     if (!activeAuthority) {
       return false;
     }
@@ -94,7 +377,7 @@ export class CivicValidators {
     return hasRequiredAuthority && hasRequiredEthic && !hasConflictingEthic;
   }
 
-  static corvéeSystem(activeEthics: IEthic[], activeCivics: ICivic[]) {
+  private corvéeSystem(activeEthics: IEthic[], activeCivics: ICivic[]) {
     const hasConflictingEthic = !!activeEthics.find(
       ethic =>
         ethic.name === 'eqalitarian' || ethic.name === 'fanatic_eqalitarian'
@@ -107,7 +390,7 @@ export class CivicValidators {
     return !hasConflictingEthic && !hasConflictingCivic;
   }
 
-  static distinguishedAdmiralty(activeEthics: IEthic[]) {
+  private distinguishedAdmiralty(activeEthics: IEthic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic =>
         ethic.name === 'militarist' || ethic.name === 'fanatic_militarist'
@@ -116,7 +399,7 @@ export class CivicValidators {
     return hasRequiredEthic;
   }
 
-  static exaltedPriesthood(
+  private exaltedPriesthood(
     activeAuthority: IAuthority,
     activeEthics: IEthic[],
     activeCivics: ICivic[]
@@ -142,7 +425,7 @@ export class CivicValidators {
     return hasRequiredAuthority && hasRequiredEthic && !hasConflictingCivics;
   }
 
-  static feudalSociety(activeAuthority: IAuthority) {
+  private feudalSociety(activeAuthority: IAuthority) {
     if (!activeAuthority) {
       return false;
     }
@@ -152,7 +435,7 @@ export class CivicValidators {
     return hasRequiredAuthority;
   }
 
-  static freeHaven(activeEthics: IEthic[], activeCivics: ICivic[]) {
+  private freeHaven(activeEthics: IEthic[], activeCivics: ICivic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic => ethic.name === 'xenophile' || ethic.name === 'fanatic_xenophile'
     );
@@ -163,7 +446,7 @@ export class CivicValidators {
     return hasRequiredEthic && !hasConflictingCivic;
   }
 
-  static idealisticFoundation(activeEthics: IEthic[]) {
+  private idealisticFoundation(activeEthics: IEthic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic =>
         ethic.name === 'eqalitarian' || ethic.name === 'fanatic_eqalitarian'
@@ -172,7 +455,7 @@ export class CivicValidators {
     return hasRequiredEthic;
   }
 
-  static imperialCult(activeAuthority: IAuthority, activeEthics: IEthic[]) {
+  private imperialCult(activeAuthority: IAuthority, activeEthics: IEthic[]) {
     if (!activeAuthority) {
       return false;
     }
@@ -191,7 +474,7 @@ export class CivicValidators {
     return hasRequiredAuthority && hasRequiredEthic && hasRequiredEthic2;
   }
 
-  static inwardPerfection(activeEthics: IEthic[]) {
+  private inwardPerfection(activeEthics: IEthic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic => ethic.name === 'pacifist' || ethic.name === 'fanatic_pacifist'
     );
@@ -202,7 +485,7 @@ export class CivicValidators {
     return hasRequiredEthic && hasRequiredEthic2;
   }
 
-  static meritocracy(activeAuthority: IAuthority) {
+  private meritocracy(activeAuthority: IAuthority) {
     if (!activeAuthority) {
       return true;
     }
@@ -214,7 +497,7 @@ export class CivicValidators {
     return !hasConflictingAuthority;
   }
 
-  static nationalisticZeal(activeEthics: IEthic[]) {
+  private nationalisticZeal(activeEthics: IEthic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic =>
         ethic.name === 'militarist' || ethic.name === 'fanatic_militarist'
@@ -223,7 +506,7 @@ export class CivicValidators {
     return hasRequiredEthic;
   }
 
-  static parliamentarySystem(activeAuthority: IAuthority) {
+  private parliamentarySystem(activeAuthority: IAuthority) {
     if (!activeAuthority) {
       return false;
     }
@@ -232,7 +515,7 @@ export class CivicValidators {
     return hasRequiredAuthority;
   }
 
-  static philosopherKing(activeAuthority: IAuthority) {
+  private philosopherKing(activeAuthority: IAuthority) {
     if (!activeAuthority) {
       return false;
     }
@@ -243,7 +526,7 @@ export class CivicValidators {
     return hasRequiredAuthority;
   }
 
-  static policeState(activeEthics: IEthic[]) {
+  private policeState(activeEthics: IEthic[]) {
     const hasConflictingEthic = !!activeEthics.find(
       ethic => ethic.name === 'fanatic_eqalitarian'
     );
@@ -251,7 +534,7 @@ export class CivicValidators {
     return !hasConflictingEthic;
   }
 
-  static shadowCouncil(activeAuthority: IAuthority) {
+  private shadowCouncil(activeAuthority: IAuthority) {
     if (!activeAuthority) {
       return true;
     }
@@ -260,7 +543,7 @@ export class CivicValidators {
     return !hasConflictedAuthority;
   }
 
-  static technocracy(activeEthics: IEthic[], activeCivics: ICivic[]) {
+  private technocracy(activeEthics: IEthic[], activeCivics: ICivic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic =>
         ethic.name === 'materialist' || ethic.name === 'fanatic_materialist'
@@ -272,7 +555,7 @@ export class CivicValidators {
     return hasRequiredEthic && !hasConflictingCivic;
   }
 
-  static warriorCulture(activeEthics: IEthic[]) {
+  private warriorCulture(activeEthics: IEthic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic =>
         ethic.name === 'militarist' || ethic.name === 'fanatic_militarist'
@@ -281,7 +564,7 @@ export class CivicValidators {
     return hasRequiredEthic;
   }
 
-  static fanaticPurifiers(activeEthics: IEthic[], activeCivics: ICivic[]) {
+  private fanaticPurifiers(activeEthics: IEthic[], activeCivics: ICivic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic => ethic.name === 'fanatic_xenophobe'
     );
@@ -298,7 +581,7 @@ export class CivicValidators {
     return hasRequiredEthic && hasRequiredEthic2 && !hasConflictingCivic;
   }
 
-  static mechanist(activeEthics: IEthic[], activeCivics: ICivic[]) {
+  private mechanist(activeEthics: IEthic[], activeCivics: ICivic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic =>
         ethic.name === 'materialist' || ethic.name === 'fanatic_materialist'
@@ -314,7 +597,7 @@ export class CivicValidators {
     return hasRequiredEthic && !hasConflictingCivics;
   }
 
-  static syncreticEvolution(activeCivics: ICivic[]) {
+  private syncreticEvolution(activeCivics: ICivic[]) {
     const hasConflictingCivic = !!activeCivics.find(
       civic =>
         civic.name === 'Mechanist' ||
@@ -326,7 +609,7 @@ export class CivicValidators {
     return !hasConflictingCivic;
   }
 
-  static lifeSeeded(activeCivics: ICivic[]) {
+  private lifeSeeded(activeCivics: ICivic[]) {
     const hasConflictingCivic = !!activeCivics.find(
       civic =>
         civic.name === 'Mechanist' ||
@@ -336,7 +619,7 @@ export class CivicValidators {
     return !hasConflictingCivic;
   }
 
-  static postApocalyptic(activeCivics: ICivic[]) {
+  private postApocalyptic(activeCivics: ICivic[]) {
     const hasConflictingCivic = !!activeCivics.find(
       civic =>
         civic.name === 'Mechanist' ||
@@ -347,7 +630,7 @@ export class CivicValidators {
     return !hasConflictingCivic;
   }
 
-  static barbaricDespoilers(activeEthics: IEthic[], activeCivics: ICivic[]) {
+  private barbaricDespoilers(activeEthics: IEthic[], activeCivics: ICivic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic =>
         ethic.name === 'militarist' || ethic.name === 'fanatic_militarist'
@@ -374,7 +657,7 @@ export class CivicValidators {
     );
   }
 
-  static byzantineBureaucray(activeCivics: ICivic[]) {
+  private byzantineBureaucray(activeCivics: ICivic[]) {
     const hasConflictingCivic = !!activeCivics.find(
       civic =>
         civic.name === 'Exalted Priesthood' ||
@@ -386,7 +669,7 @@ export class CivicValidators {
     return !hasConflictingCivic;
   }
 
-  static merchantGuilds(activeCivics: ICivic[]) {
+  private merchantGuilds(activeCivics: ICivic[]) {
     const hasConflictingCivic = !!activeCivics.find(
       civic =>
         civic.name === 'Exalted Priesthood' ||
@@ -398,7 +681,7 @@ export class CivicValidators {
     return !hasConflictingCivic;
   }
 
-  static sharedBurdens(activeEthics: IEthic[], activeCivics: ICivic[]) {
+  private sharedBurdens(activeEthics: IEthic[], activeCivics: ICivic[]) {
     const hasRequiredEthic = !!activeEthics.find(
       ethic => ethic.name === 'fanatic_eqalitarian'
     );
@@ -410,26 +693,5 @@ export class CivicValidators {
     );
 
     return hasRequiredEthic && !hasConflictingEthic && !hasConflictingCivic;
-  }
-
-  //
-  // Corporate
-  //
-
-  static gospelOfTheMasses(activeEthics: IEthic[]) {
-    const hasRequiredEthic = !!activeEthics.find(
-      ethic =>
-        ethic.name === 'spiritualist' || ethic.name === 'fanatic_spiritualist'
-    );
-
-    return hasRequiredEthic;
-  }
-
-  static indenturedAssets(activeEthics: IEthic[]) {
-    const hasRequiredEthic = !!activeEthics.find(
-      ethic => ethic.name === 'authoritarian'
-    );
-
-    return hasRequiredEthic;
   }
 }

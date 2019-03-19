@@ -3,4 +3,5 @@ export interface IAuthority {
   url: string;
   status: string;
   description: string;
+  type: string;
 }

@@ -1,4 +1,10 @@
-<div class="selected-civics">
+<div
+  class="selected-civics"
+  [ngClass]="{
+    corporate:
+      activeAuthority && activeAuthority.type === authorityTypes.corporate
+  }"
+>
   <div
     class="item civic-item flex"
     (click)="deSelectCivic(civic)"
@@ -6,7 +12,9 @@
     [ngClass]="{
       active: civic.status === civicStatus.active,
       disabled: civic.status === civicStatus.disabled,
-      invalid: civic.status === civicStatus.invalid
+      invalid: civic.status === civicStatus.invalid,
+      corporate:
+        activeAuthority && activeAuthority.type === authorityTypes.corporate
     }"
   >
     <img src="{{ civic.url }}" />
@@ -20,7 +28,9 @@
     (click)="civicClicked(civic)"
     [ngClass]="{
       active: civic.status === civicStatus.active,
-      disabled: civic.status === civicStatus.disabled
+      disabled: civic.status === civicStatus.disabled,
+      corporate:
+        activeAuthority && activeAuthority.type === authorityTypes.corporate
     }"
   >
     <img src="{{ civic.url }}" />

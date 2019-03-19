@@ -7,6 +7,13 @@ export enum AuthorityStatus {
   disabled = 'disabled'
 }
 
+export enum AuthorityType {
+  standard = 'Standard',
+  corporate = 'Corporate',
+  hiveMind = 'Hive Mind',
+  machineIntelligence = 'Machine Intelligence'
+}
+
 export class AuthoritiesUtils {
   public static getAuthorities(): IAuthority[] {
     const baseUrl = environment.baseUrl;
@@ -16,21 +23,24 @@ export class AuthoritiesUtils {
         description:
           'Democratic governments have regular elections where all citizens can vote on who should represent them.',
         url: `${baseUrl}/assets/Images/Authorities/Auth_democratic.png`,
-        status: AuthorityStatus.available
+        status: AuthorityStatus.available,
+        type: AuthorityType.standard
       },
       {
         name: 'Oligarchic',
         description:
           'Oligarchic governments are ruled by a small group of individuals that hold all political power.',
         url: `${baseUrl}/assets/Images/Authorities/Auth_oligarchic.png`,
-        status: AuthorityStatus.available
+        status: AuthorityStatus.available,
+        type: AuthorityType.standard
       },
       {
         name: 'Dictatorial',
         description:
           'Dictatorial governments are ruled by a single individual for life that wields absolute control over the state.',
         url: `${baseUrl}/assets/Images/Authorities/Auth_dictatorial.png`,
-        status: AuthorityStatus.available
+        status: AuthorityStatus.available,
+        type: AuthorityType.standard
       },
       {
         name: 'Imperial',
@@ -38,7 +48,8 @@ export class AuthoritiesUtils {
           'Imperial governments are similar to dictatorial ones, except that the throne is always inherited\
 		   by a designated successor upon the rulers death.',
         url: `${baseUrl}/assets/Images/Authorities/Auth_imperial.png`,
-        status: AuthorityStatus.available
+        status: AuthorityStatus.available,
+        type: AuthorityType.standard
       },
       {
         name: 'Hive Mind',
@@ -50,7 +61,8 @@ export class AuthoritiesUtils {
 		  wither and die. Any free individuals on planets owned by the Mind are driven away, \
 		  killed, or simply treated as prey to feed the collective.',
         url: `${baseUrl}/assets/Images/Authorities/Auth_hive_mind.png`,
-        status: AuthorityStatus.disabled
+        status: AuthorityStatus.disabled,
+        type: AuthorityType.hiveMind
       },
       {
         name: 'Machine Intelligence',
@@ -62,14 +74,16 @@ export class AuthoritiesUtils {
 		A small number of semi-autonomous agents are typically employed for \
 		more specialized tasks that benefit from some degree of independent initiative.',
         url: `${baseUrl}/assets/Images/Authorities/Auth_machine_intelligence.png`,
-        status: AuthorityStatus.disabled
+        status: AuthorityStatus.disabled,
+        type: AuthorityType.machineIntelligence
       },
       {
         name: 'Corporate',
         description:
           'Corporate governments are organized as a massive commercial enterprise that has completely supplanted the role of the state.',
         url: `${baseUrl}/assets/Images/Authorities/Auth_corporate.png`,
-        status: AuthorityStatus.available
+        status: AuthorityStatus.available,
+        type: AuthorityType.corporate
       }
     ];
 

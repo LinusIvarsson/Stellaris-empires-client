@@ -1,6 +1,9 @@
 @import '../../../../assets/Styles/government-styles.scss';
 .selected-civics {
   border-bottom: solid 2px #00cb9d;
+  &.corporate {
+    border-bottom: solid 2px #c7cd15;
+  }
 }
 .unselected-civics {
   height: 500px;
@@ -8,7 +11,6 @@
 }
 
 .civic-item {
-  color: white;
   line-height: 1.6rem;
   font-size: 0.9rem;
   border: 2px solid transparent;
@@ -17,5 +19,11 @@
     margin-right: 10px;
     width: 1.6rem;
     height: 1.6rem;
+  }
+
+  &.corporate {
+    span {
+      color: #c7cd15;
+    }
   }
 }
