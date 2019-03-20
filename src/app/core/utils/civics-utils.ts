@@ -348,7 +348,7 @@ export class CivicsUtils {
 		   base. Its catchy corporate slogans can be recited by nearly everyone.',
         url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_brand_loyalty.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       },
       {
         name: 'Criminal Heritage',
@@ -357,7 +357,7 @@ export class CivicsUtils {
 		  grew powerful enough to supplant all forms of local government.',
         url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_criminal_heritage.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       },
       {
         name: 'Franchising',
@@ -366,7 +366,7 @@ export class CivicsUtils {
 		  profits with their corporate overlord, in exchange for a license to market their goods under established brands.',
         url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_franchising.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       },
       {
         name: 'Free Traders',
@@ -374,7 +374,7 @@ export class CivicsUtils {
           'The trading fleets of this megacorporation are bolstered by semi-independent free traders operating under license.',
         url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_free_traders.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       },
       {
         name: 'Gospel of the Masses',
@@ -383,7 +383,7 @@ export class CivicsUtils {
 		  ordained minister and corporate officer have merged into a single role.',
         url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_gospel_of_the_masses.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       },
       {
         name: 'Indentured Assets',
@@ -392,7 +392,7 @@ export class CivicsUtils {
 		  slavery - these workers are merely paying off their debts... indefinitely.',
         url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_indentured_assets.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       },
       {
         name: 'Media Conglomerate',
@@ -401,7 +401,7 @@ export class CivicsUtils {
 		  PR department are still masters of spinning stories and presenting the latest quarterly report in the most advantageous way.',
         url: `${baseUrl}/assets/Images/Civics/Corporate/Civic_media_conglomerate.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       },
       {
         name: 'Naval Contractors',
@@ -410,7 +410,7 @@ export class CivicsUtils {
 		  Competing for bids, the contractors are always struggling to outperform one another.',
         url: `${baseUrl}../../../assets/Images/Civics/Corporate/Civic_naval_contractors.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       },
       {
         name: 'Private Military Companies',
@@ -419,7 +419,7 @@ export class CivicsUtils {
 		  These mercenary contractors augment its ground forces.',
         url: `${baseUrl}../../../assets/Images/Civics/Corporate/Civic_private_military_companies.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       },
       {
         name: 'Private Prospectors',
@@ -428,7 +428,7 @@ export class CivicsUtils {
 		  to chart and establish footholds on promising planets.',
         url: `${baseUrl}../../../assets/Images/Civics/Corporate/Civic_private_prospectors.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       },
       {
         name: 'Ruthless Competition',
@@ -437,7 +437,7 @@ export class CivicsUtils {
 		  Its a dog-eat-dog world.',
         url: `${baseUrl}../../../assets/Images/Civics/Corporate/Civic_ruthless_competition.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       },
       {
         name: 'Trading Posts',
@@ -446,7 +446,7 @@ export class CivicsUtils {
 		   the establishment on trading posts. Their starbases are busy centers of trade.',
         url: `${baseUrl}../../../assets/Images/Civics/Corporate/Civic_trading_posts.png`,
         status: CivicStatus.disabled,
-        type: 'Standard'
+        type: 'Corporate'
       }
     ];
   }
